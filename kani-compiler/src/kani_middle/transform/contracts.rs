@@ -8,7 +8,6 @@ use crate::kani_middle::kani_functions::{KaniIntrinsic, KaniModel};
 use crate::kani_middle::transform::body::{InsertPosition, MutableBody, SourceInstruction};
 use crate::kani_middle::transform::{TransformPass, TransformationType};
 use crate::kani_queries::QueryDb;
-use cbmc::{InternString, InternedString};
 use rustc_hir::def_id::DefId as InternalDefId;
 use rustc_middle::ty::TyCtxt;
 use rustc_smir::rustc_internal;
@@ -40,7 +39,7 @@ pub struct AnyModifiesPass {
     kani_write_any_slim: Option<FnDef>,
     kani_write_any_slice: Option<FnDef>,
     kani_write_any_str: Option<FnDef>,
-    target_fn: Option<InternedString>,
+    target_fn: Option<String>,
 }
 
 impl TransformPass for AnyModifiesPass {
@@ -89,7 +88,7 @@ impl AnyModifiesPass {
         let target_fn = if let Some(harness) = unit.harnesses.first() {
             let attributes = KaniAttributes::for_instance(tcx, *harness);
             let target_fn =
-                attributes.proof_for_contract().map(|symbol| symbol.unwrap().as_str().intern());
+                attributes.proof_for_contract().map(|symbol| symbol.unwrap().as_str().to_string());
             target_fn
         } else {
             None
@@ -190,7 +189,7 @@ impl AnyModifiesPass {
                             format!(
                                 "`{receiver_ty}` doesn't implement `kani::Arbitrary`.\
                                         Please, check `{}` contract.",
-                                self.target_fn.unwrap(),
+                                self.target_fn.as_ref().unwrap(),
                             )
                         } else {
                             format!("`{receiver_ty}` doesn't implement `kani::Arbitrary`.")

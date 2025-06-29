@@ -10,11 +10,11 @@ pub enum BackendOption {
     /// CProver (Goto) backend
     #[cfg(feature = "cprover")]
     #[strum(serialize = "cprover")]
-    #[default]
     CProver,
 
     /// LLBC backend (Aeneas's IR)
     #[cfg(feature = "llbc")]
+    #[default]
     Llbc,
 }
 
@@ -84,7 +84,7 @@ pub struct Arguments {
     #[clap(long)]
     pub ub_check: Vec<ExtraChecks>,
     /// Option name used to select which backend to use.
-    #[clap(long = "backend", default_value_t = BackendOption::CProver)]
+    #[clap(long = "backend", default_value_t = BackendOption::Llbc)]
     pub backend: BackendOption,
     /// Print the final LLBC file to stdout.
     #[clap(long)]
