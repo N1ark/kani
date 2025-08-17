@@ -8,7 +8,8 @@ pub fn test_offset_in_double_array() {
     table[0][kani::any::<usize>()]; // EXPECTED FAIL
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     test_offset_in_double_array();
 }

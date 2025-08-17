@@ -13,7 +13,8 @@ fn fp_equals(value: f64, expected: f64) -> bool {
     abs_diff <= f64::EPSILON
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn cosine_range() {
     let x: f64 = kani::any();
     kani::assume(x.is_finite());
@@ -22,7 +23,8 @@ fn cosine_range() {
     assert!(cosine > -1.0 || fp_equals(cosine, -1.0));
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn cosine_const() {
     let x = 0.0;
     let cosine = unsafe { std::intrinsics::cosf64(x) };

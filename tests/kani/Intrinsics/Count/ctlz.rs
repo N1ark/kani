@@ -46,7 +46,8 @@ macro_rules! test_ctlz_nonzero {
     };
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     test_ctlz!(my_ctlz_u8, u8);
     test_ctlz!(my_ctlz_u16, u16);

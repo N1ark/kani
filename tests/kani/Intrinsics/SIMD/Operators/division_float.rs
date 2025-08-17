@@ -29,7 +29,8 @@ impl f32x2 {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_simd_div() {
     let dividends = f32x2::new_with(|| {
         let multiplier = kani::any_where(|&n: &i8| n >= -5 && n <= 5);

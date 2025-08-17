@@ -9,7 +9,8 @@ use kani::mem::same_allocation;
 use kani::{AllocationStatus, ArbitraryPointer, PointerGenerator};
 use std::any::Any;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_inbounds() {
     let mut generator = PointerGenerator::<100>::new();
     let ArbitraryPointer { ptr: ptr1, .. } = generator.any_in_bounds::<u8>();
@@ -17,7 +18,8 @@ fn check_inbounds() {
     assert!(same_allocation(ptr1, ptr2));
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_inbounds_other_alloc() {
     let mut generator1 = PointerGenerator::<100>::new();
     let mut generator2 = PointerGenerator::<100>::new();
@@ -26,7 +28,8 @@ fn check_inbounds_other_alloc() {
     assert!(!same_allocation(ptr1, ptr2));
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_dangling() {
     let mut generator = PointerGenerator::<100>::new();
     let ArbitraryPointer { ptr: ptr1, status: status1, .. } = generator.any_alloc_status::<u8>();
@@ -35,7 +38,8 @@ fn check_dangling() {
     assert!(!same_allocation(ptr1, ptr2));
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_one_dead() {
     let mut generator = PointerGenerator::<100>::new();
     let ArbitraryPointer { ptr: ptr1, status: status1, .. } = generator.any_alloc_status::<u8>();
@@ -44,7 +48,8 @@ fn check_one_dead() {
     assert!(!same_allocation(ptr1, ptr2));
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_dyn_alloc() {
     let mut generator1 = Box::new(PointerGenerator::<100>::new());
     let mut generator2 = Box::new(PointerGenerator::<100>::new());
@@ -56,7 +61,8 @@ fn check_dyn_alloc() {
     assert!(!same_allocation(ptr1a, ptr2));
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_same_alloc_dyn_ptr() {
     let mut generator = PointerGenerator::<100>::new();
     let ArbitraryPointer { ptr: ptr1, .. } = generator.any_in_bounds::<()>();
@@ -66,7 +72,8 @@ fn check_same_alloc_dyn_ptr() {
     assert!(same_allocation(dyn_1, dyn_2));
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_not_same_alloc_dyn_ptr() {
     let mut generator1 = PointerGenerator::<100>::new();
     let mut generator2 = PointerGenerator::<100>::new();
@@ -77,7 +84,8 @@ fn check_not_same_alloc_dyn_ptr() {
     assert!(!same_allocation(dyn_1, dyn_2));
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_same_alloc_slice() {
     let mut generator = PointerGenerator::<100>::new();
     let ArbitraryPointer { ptr: ptr1, .. } = generator.any_in_bounds::<[u16; 4]>();
@@ -87,7 +95,8 @@ fn check_same_alloc_slice() {
     assert!(same_allocation(slice_1, slice_2));
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_not_same_alloc_slice() {
     let mut generator1 = PointerGenerator::<100>::new();
     let mut generator2 = PointerGenerator::<100>::new();

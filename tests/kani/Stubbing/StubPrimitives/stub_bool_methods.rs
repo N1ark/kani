@@ -10,8 +10,9 @@ pub fn stub_then_some_is_none<T>(_: bool, _: T) -> Option<T> {
 }
 
 /// Check that we can stub `then_some`.
-#[kani::proof]
-#[kani::stub(bool::then_some, stub_then_some_is_none)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::stub(bool::then_some, stub_then_some_is_none))]
 pub fn check_stub_then_some() {
     let input: bool = kani::any();
     assert_eq!(input.then_some("h"), None);
@@ -25,9 +26,10 @@ where
 }
 
 /// Check that we can stub `then`.
-#[kani::proof]
-#[kani::should_panic]
-#[kani::stub(bool::then, stub_then_panic)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::should_panic)]
+#[cfg_attr(kani, kani::stub(bool::then, stub_then_panic))]
 pub fn check_stub_then() {
     let input: bool = kani::any();
     let output: char = kani::any();

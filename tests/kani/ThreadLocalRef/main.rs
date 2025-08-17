@@ -11,14 +11,16 @@ thread_local! {
     static COMPLEX_DATA: RefCell<&'static str> = RefCell::new("before");
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_bool() {
     COND.with(|&b| {
         assert!(b);
     });
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_i32() {
     COUNTER.with(|c| {
         assert_eq!(*c.borrow(), 0);
@@ -31,8 +33,9 @@ fn test_i32() {
 
 // TODO: This test exposes a bug in CBMC 6.7.1. It should be re-enabled once a version of CBMC that
 // includes https://github.com/diffblue/cbmc/pull/8678 has been released.
-// #[kani::proof]
-// #[kani::unwind(7)]
+// #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+// #[cfg_attr(kani, kani::unwind(7))]
 // fn test_complex_data() {
 //     COMPLEX_DATA.with(|c| {
 //         assert_eq!(*c.borrow(), "before");

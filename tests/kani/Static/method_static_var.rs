@@ -14,7 +14,8 @@ fn new_id() -> i8 {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let id_1 = new_id();
     let id_2 = new_id();

@@ -17,8 +17,9 @@ fn bounded_loop<T: Default>(b: bool, other: T) -> T {
 }
 
 /// Harness that should succeed. We add a conservative loop bound.
-#[kani::proof]
-#[kani::unwind(3)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(3))]
 fn harness() {
     let _ = bounded_loop(kani::any(), ());
 }

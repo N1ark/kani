@@ -31,7 +31,8 @@ macro_rules! verify_no_overflow {
     }};
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_simd_ops() {
     verify_no_overflow!(checked_add, simd_add);
     verify_no_overflow!(checked_sub, simd_sub);

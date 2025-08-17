@@ -9,7 +9,8 @@ pub struct Foo {
     _never: !,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_unwrap_never() {
     let res = Result::<i32, Foo>::Ok(3);
     let _x = res.unwrap_or_else(|_f| 5);

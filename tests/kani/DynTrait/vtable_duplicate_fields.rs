@@ -38,7 +38,8 @@ impl B for S {
 
 impl T for S {}
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let t = S::new_box(1, 2);
     let a = <dyn T as A>::foo(&*t);

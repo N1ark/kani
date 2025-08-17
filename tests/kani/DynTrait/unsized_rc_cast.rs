@@ -20,7 +20,8 @@ fn all_zero_rc(num: Rc<dyn Byte>) -> bool {
     num.eq(0x0)
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_rc() {
     let num: u8 = kani::any();
     kani::assume(num != 0);

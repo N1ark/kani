@@ -6,7 +6,8 @@
 
 use std::simd::{simd_swizzle, u32x4, u32x8};
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn harness_from_u32x4_to_u32x4() {
     let a = u32x4::from_array([0, 1, 2, 3]);
     let b = u32x4::from_array([4, 5, 6, 7]);
@@ -14,7 +15,8 @@ fn harness_from_u32x4_to_u32x4() {
     assert_eq!(r.to_array(), [0, 1, 6, 7]);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn harness_from_u32x4_to_u32x8() {
     let a = u32x4::from_array([0, 1, 2, 3]);
     let b = u32x4::from_array([4, 5, 6, 7]);
@@ -22,7 +24,8 @@ fn harness_from_u32x4_to_u32x8() {
     assert_eq!(r.to_array(), [0, 1, 2, 3, 4, 5, 6, 7]);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn harness_from_u32x8_to_u32x4() {
     let a = u32x8::from_array([0, 1, 2, 3, 4, 5, 6, 7]);
     let b = u32x8::from_array([0, 1, 2, 3, 4, 5, 6, 7]);

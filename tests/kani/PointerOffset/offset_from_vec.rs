@@ -3,15 +3,17 @@
 //! Check that offset_from_ptr works for vector and types with size that are not power of two.
 #![feature(ptr_sub_ptr)]
 
-#[kani::proof]
-#[kani::unwind(5)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(5))]
 fn offset_from_vec() {
     let v1 = vec![vec![1], vec![2]];
     let it = v1.into_iter();
     assert_eq!(it.size_hint().0, 2);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn offset_non_power_two() {
     let mut v = vec![[0u64; 3], [2u64; 3]];
     unsafe {

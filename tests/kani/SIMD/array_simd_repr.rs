@@ -27,14 +27,16 @@ impl std::cmp::PartialOrd for i64x2 {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_diff() {
     let x = i64x2([1, 2]);
     let y = i64x2([3, 4]);
     assert!(x != y);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_ge() {
     let x: i64x2 = kani::any();
     kani::assume(x.into_array()[0] > 0);
@@ -66,7 +68,8 @@ impl<T, const LANES: usize> CustomSimd<T, LANES> {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn simd_vec() {
     let simd = CustomSimd([0u8; 10]);
     let idx: usize = kani::any_where(|x: &usize| *x < 10);

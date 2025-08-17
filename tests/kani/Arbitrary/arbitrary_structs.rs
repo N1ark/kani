@@ -64,8 +64,9 @@ where
     assert!(var.iter().all(|e| e.ok()));
 }
 
-#[kani::proof]
-#[kani::unwind(12)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(12))]
 fn check_arbitrary() {
     check::<PercentArbitrary>();
     check_result::<PercentArbitrary>();

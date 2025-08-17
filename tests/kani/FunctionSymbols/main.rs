@@ -3,7 +3,8 @@
 
 //! Test code generation for FnDef items
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_reify_fn_pointer() {
     assert!(poly::<usize> as fn() == poly::<usize> as fn());
     assert!(poly::<isize> as fn() != poly::<usize> as fn());
@@ -11,7 +12,8 @@ fn test_reify_fn_pointer() {
 
 fn poly<T>() {}
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_fn_pointer_call() {
     let x: bool = kani::any();
     assert_eq!(id(x), x);
@@ -26,7 +28,8 @@ struct Wrapper<T> {
     inner: T,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_fn_wrapper() {
     let w = Wrapper { inner: id::<bool> };
     assert!(w.inner as fn(bool) -> bool == id::<bool> as fn(bool) -> bool);

@@ -7,7 +7,8 @@
 
 mod core {}
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let x: u8 = kani::any();
     let y = x / 2;

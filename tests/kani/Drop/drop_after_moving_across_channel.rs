@@ -18,7 +18,8 @@ impl Drop for DropSetCELLToOne {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     {
         let (send, recv) = channel::<DropSetCELLToOne>();

@@ -21,7 +21,8 @@ enum MyEnum {
     Variant,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     #[cfg(target_arch = "x86_64")]
     unsafe {

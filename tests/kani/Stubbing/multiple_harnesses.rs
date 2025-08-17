@@ -21,19 +21,22 @@ pub fn magic_number_stub_2() -> u32 {
 mod verify {
     use super::*;
 
-    #[kani::proof]
+    #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
     fn check_no_stub() {
         assert_eq!(magic_number(), 0);
     }
 
-    #[kani::proof]
-    #[kani::stub(magic_number, magic_number_stub_1)]
+    #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+    #[cfg_attr(kani, kani::stub(magic_number, magic_number_stub_1))]
     fn check_stub_1() {
         assert_eq!(magic_number(), 1);
     }
 
-    #[kani::proof]
-    #[kani::stub(magic_number, magic_number_stub_2)]
+    #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+    #[cfg_attr(kani, kani::stub(magic_number, magic_number_stub_2))]
     fn check_stub_2() {
         assert_eq!(magic_number(), 2);
     }

@@ -6,7 +6,8 @@
 //! Empty slices use dangling pointers. We disabled overflow check to avoid a bunch of spurious
 //! counter examples. This test checks that we still fail on improper dereference check.
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_invalid_access_fails() {
     let vector = Vec::<bool>::new();
     let slice = vector.as_slice();

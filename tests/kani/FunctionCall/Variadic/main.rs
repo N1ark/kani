@@ -12,7 +12,8 @@ type c_long = i64;
 
 pub unsafe extern "C" fn syscall(_num: c_long, _: ...) {}
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let arg0: c_long = 0;
     let arg1: c_long = 1;

@@ -1,7 +1,8 @@
 // Copyright Kani Contributors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 const FIFO_SIZE: usize = 2;
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let len: usize = kani::any();
     if !(len <= FIFO_SIZE) {
@@ -17,17 +18,20 @@ fn main() {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn minimal1() {
     let v: Vec<i8> = vec![kani::any(); 0];
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn minimal2() {
     let v: Vec<i8> = vec![5; 0];
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn vec3772() {
     let value: u8 = 1; /* set to zero and it passes */
     let count: u16 = kani::any();

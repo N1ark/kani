@@ -41,10 +41,11 @@ fn magic_number() -> u32 {
     42
 }
 
-#[kani::proof]
-#[kani::stub(zero, magic_number)]
-#[kani::stub(one, crate::magic_number)]
-#[kani::stub(two, other_magic_number)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::stub(zero, magic_number))]
+#[cfg_attr(kani, kani::stub(one, crate::magic_number))]
+#[cfg_attr(kani, kani::stub(two, other_magic_number))]
 fn harness() {
     assert_eq!(zero(), magic_number());
     assert_eq!(zero(), 42);

@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 // kani-flags: -Z quantifiers
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn vec_assert_forall_harness() {
     let v = vec![10 as u8; 128];
     let ptr = v.as_ptr();
@@ -11,7 +12,8 @@ fn vec_assert_forall_harness() {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn slice_assume_forall_harness() {
     let arr: [u8; 8] = kani::any();
     let ptr = arr.as_ptr();
@@ -21,7 +23,8 @@ fn slice_assume_forall_harness() {
     kani::assert(arr[0] < 8, "");
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn slice_assume_sorted_harness() {
     let arr: [u8; 12] = kani::any();
     let ptr = arr.as_ptr();

@@ -29,10 +29,11 @@ mod my_mod {
         }
     }
 
-    #[kani::proof]
-    #[kani::stub(zero, magic_number13)]
-    #[kani::stub(one, magic_number42)]
-    #[kani::stub(two, MyType::magic_number101)]
+    #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+    #[cfg_attr(kani, kani::stub(zero, magic_number13))]
+    #[cfg_attr(kani, kani::stub(one, magic_number42))]
+    #[cfg_attr(kani, kani::stub(two, MyType::magic_number101))]
     fn harness() {
         assert_eq!(zero(), magic_number13());
         assert_eq!(one(), magic_number42());

@@ -33,13 +33,15 @@ fn load_ordering() -> Ordering {
 static GLOBAL_ATOMIC: AtomicUsize = AtomicUsize::new(0);
 
 // Checks if memory initialization checks work with atomics defined in the global scope.
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn global_atomic() {
     let old_value = GLOBAL_ATOMIC.fetch_add(1, any_ordering());
 }
 
 // Checks if memory initialization checks work with atomics.
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn local_atomic() {
     // Get a pointer to an allocated value
     let ptr: *mut usize = Box::into_raw(Box::new(0));
@@ -57,7 +59,8 @@ fn local_atomic() {
 }
 
 // Checks if memory initialization checks work with compare-and-swap atomics.
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn compare_exchange_atomic() {
     // Create an atomic.
     let some_var = AtomicUsize::new(5);

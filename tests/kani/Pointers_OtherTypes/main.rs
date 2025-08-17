@@ -8,7 +8,8 @@
 // [main.NaN.1] line 25 NaN on * in var_30 * 0.0f: FAILURE
 // Tracking issue: https://github.com/model-checking/kani/issues/307
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let mut x = 1;
     add_two(&mut x);

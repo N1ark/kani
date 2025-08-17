@@ -16,7 +16,8 @@ struct Packed {
     unaligned: u32,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let mut packed: Packed = unsafe { std::mem::zeroed() };
     // Take the address of a 32-bit integer which is not aligned.

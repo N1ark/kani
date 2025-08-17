@@ -30,7 +30,8 @@ fn get_random_enum_variant() -> EnumWithTwoIncrements {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     {
         let _e1 = get_random_enum_variant();

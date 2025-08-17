@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 // kani-flags: -Z quantifiers
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn quantifier_even_harness() {
     let j: usize = kani::any();
     kani::assume(j % 2 == 0 && j < 2000);

@@ -6,7 +6,8 @@
 
 use std::sync::atomic::{AtomicBool, Ordering};
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     // pub fn fetch_and(&self, val: bool, order: Ordering) -> bool
     // Performs a logical "and" operation on the current value and

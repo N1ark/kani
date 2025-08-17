@@ -5,7 +5,8 @@
 // functions modelled in CBMC's math library. These models use approximations as documented in
 // CBMC's source code: https://github.com/diffblue/cbmc/blob/develop/src/ansi-c/library/math.c.
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn verify_exp2_32() {
     let two = 2.0_f32;
     let two_two = two.exp2();
@@ -13,7 +14,8 @@ fn verify_exp2_32() {
     assert!((two_two - 4.0).abs() <= 0.345);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn verify_exp2_64() {
     let two = 2.0_f64;
     let two_two = two.exp2();

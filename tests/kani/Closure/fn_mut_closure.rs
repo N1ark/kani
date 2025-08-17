@@ -13,8 +13,9 @@ where
     }
 }
 
-#[kani::proof]
-#[kani::unwind(6)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(6))]
 fn main() {
     let mut sum = 0_usize;
     let elems = [1_usize, 2, 3, 4, 5];

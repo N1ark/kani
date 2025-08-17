@@ -26,8 +26,9 @@ impl Drop for Dropper {
     }
 }
 
-#[kani::proof]
-#[kani::unwind(16)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(16))]
 fn main() {
     let mut g = #[coroutine]
     |mut _d| {

@@ -16,8 +16,9 @@ mod mod1 {
             42
         }
 
-        #[kani::proof]
-        #[kani::stub(foo, bar)]
+        #[cfg_attr(kani, kani::proof)]
+        #[cfg_attr(not(kani), test)]
+        #[cfg_attr(kani, kani::stub(foo, bar))]
         fn harness() {
             assert_eq!(foo(), 42);
         }

@@ -5,7 +5,8 @@
 // Check that `unchecked_sub` triggers overflow checks.
 #![feature(core_intrinsics)]
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let a: i32 = kani::any();
     let b: i32 = kani::any();

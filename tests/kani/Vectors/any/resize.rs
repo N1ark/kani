@@ -4,8 +4,9 @@
 /// Resizing arbitrary vector of Vec<i64> length at most 5, at least
 /// 2. Asserts that the modification occurs, and only on memory that
 /// should be changed.
-#[kani::proof]
-#[kani::unwind(50)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(50))]
 fn main() {
     let mut v: Vec<i64> = kani::vec::exact_vec::<_, 5>();
 

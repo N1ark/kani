@@ -28,7 +28,8 @@ impl u32x2 {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_simd_shl() {
     let value = kani::any();
     let values = i32x2([value, value]);
@@ -41,7 +42,8 @@ fn test_simd_shl() {
     assert_eq!(normal_result, simd_result.into_array()[0]);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_simd_shr_signed() {
     let value = kani::any();
     let values = i32x2([value, value]);
@@ -54,7 +56,8 @@ fn test_simd_shr_signed() {
     assert_eq!(normal_result, simd_result.into_array()[0]);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_simd_shr_unsigned() {
     let value = kani::any();
     let values = u32x2([value, value]);

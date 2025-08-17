@@ -32,22 +32,26 @@ macro_rules! test_ctpop {
     };
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_ctpop_u8() {
     test_ctpop!(my_ctpop_u8, u8);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_ctpop_u16() {
     test_ctpop!(my_ctpop_u16, u16);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_ctpop_u32() {
     test_ctpop!(my_ctpop_u32, u32);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_ctpop_u64() {
     test_ctpop!(my_ctpop_u64, u64);
 }
@@ -57,7 +61,8 @@ fn test_ctpop_u128() {
     test_ctpop!(my_ctpop_u128, u128);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_ctpop_usize() {
     test_ctpop!(my_ctpop_usize, usize);
 }

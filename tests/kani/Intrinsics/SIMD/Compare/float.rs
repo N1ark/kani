@@ -33,7 +33,8 @@ macro_rules! assert_cmp {
     };
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let x = f64x2([0.0, 0.0]);
     let y = f64x2([0.0, 1.0]);

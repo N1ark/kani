@@ -5,7 +5,8 @@
 // CBMC's math library. These models use approximations as documented in CBMC's source code:
 // https://github.com/diffblue/cbmc/blob/develop/src/ansi-c/library/math.c.
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn verify_pow() {
     let x: f32 = kani::any();
     kani::assume(x.is_normal());

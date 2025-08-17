@@ -4,7 +4,8 @@ enum Dummy {
     Dumb,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     // invoke replace on a zero-sized type
     let mut value: Dummy = Dummy::Dumb;

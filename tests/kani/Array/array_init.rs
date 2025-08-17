@@ -1,7 +1,8 @@
 // Copyright Kani Contributors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn init_int() {
     let a = [4u8; 6];
     let i: usize = kani::any();
@@ -9,7 +10,8 @@ fn init_int() {
     assert_eq!(a[i], 4);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn init_option() {
     let a = [Some(4u8); 6];
     let i: usize = kani::any();
@@ -17,7 +19,8 @@ fn init_option() {
     assert_eq!(a[i], Some(4));
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn init_double_array() {
     let a = [Some(4u8); 6];
     let b = [a; 3];
@@ -35,7 +38,8 @@ struct NonCopy {
     c: Option<u16>,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn init_array_of_non_copystruct() {
     let v = NonCopy { a: 1, b: 2, c: Some(3) };
     // If length is >1, Rust complains that the struct must be `Copy`.
@@ -54,7 +58,8 @@ struct Copyable {
     c: Option<u16>,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn init_array_of_struct() {
     let v = Copyable { a: 1, b: 2, c: Some(3) };
     let a = [v; 6];
@@ -73,7 +78,8 @@ struct ReprC {
     c: Option<u16>,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn init_array_of_repr_c_struct() {
     let v = ReprC { a: 1, b: 2, c: Some(3) };
     let a = [v; 6];
@@ -84,7 +90,8 @@ fn init_array_of_repr_c_struct() {
     assert_eq!(a[i].c, Some(3));
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn mutate_array() {
     let mut a = [4u8; 6];
     a[2] = 1;

@@ -5,7 +5,8 @@
 // pointer `src` to pointer `dst`. Their regions of memory do not overlap, otherwise the
 // call to `copy_nonoverlapping` would fail (a separate test checks for this).
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_copy_nonoverlapping_simple() {
     let mut expected_val = 42;
     let src: *mut i32 = &mut expected_val as *mut i32;

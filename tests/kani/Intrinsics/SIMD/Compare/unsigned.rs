@@ -27,7 +27,8 @@ macro_rules! assert_cmp {
 // Vectors are compared element-wise producing:
 //  * All bits set (e.g., -1 in signed integers) if the result is false
 //  * No bits set (e.g., 0 in signed integers) if the result is true
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let x = u64x2([0, 0]);
     let y = u64x2([0, 1]);

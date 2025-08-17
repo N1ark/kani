@@ -3,7 +3,8 @@
 
 // This test checks the subslice pattern
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let arr = [1, 2, 3];
     // s is a slice (&[i32])

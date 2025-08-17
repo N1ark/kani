@@ -6,7 +6,8 @@
 mod defs;
 use defs::*;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_inner_dyn_coercion() {
     let inner_id = kani::any();
     let outer_id = kani::any();

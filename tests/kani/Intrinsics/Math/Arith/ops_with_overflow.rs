@@ -33,19 +33,22 @@ macro_rules! verify_overflow {
     }};
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_add_with_overflow() {
     verify_no_overflow!(u8, checked_add, add_with_overflow);
     verify_overflow!(u8, checked_add, add_with_overflow);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_sub_with_overflow() {
     verify_no_overflow!(u8, checked_sub, sub_with_overflow);
     verify_overflow!(u8, checked_sub, sub_with_overflow);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_mul_with_overflow() {
     verify_no_overflow!(u8, checked_mul, mul_with_overflow);
     verify_overflow!(u8, checked_mul, mul_with_overflow);

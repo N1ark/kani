@@ -13,7 +13,8 @@ extern "C" {
 
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     unsafe {
         assert!(my_add(2 as usize, 3 as usize, 4 as usize) == 7); //works

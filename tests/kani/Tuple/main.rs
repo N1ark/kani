@@ -4,7 +4,8 @@
 //! Tests for arbitrary tuples. Kani Lib supports up to size 12, so
 //! minimum (size 1) and maximum (size 12) are tested here.
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_tuple_size_1() {
     let tuple1: (usize,) = kani::any();
     kani::assume(tuple1.0 < 10);
@@ -12,7 +13,8 @@ fn test_tuple_size_1() {
     assert!(tuple1.0 <= 9)
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_tuple_size_12() {
     let tuple12: (u8, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8) = kani::any();
 

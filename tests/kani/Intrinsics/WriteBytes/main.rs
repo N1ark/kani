@@ -8,7 +8,8 @@
 #![feature(core_intrinsics)]
 use std::intrinsics::write_bytes;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let mut vec = vec![0u32; 4];
     unsafe {

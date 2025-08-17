@@ -22,7 +22,8 @@ impl Display for MyError {
 
 impl Error for MyError {}
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn is_same_error() {
     let e = MyError;
     let d = &e as &(dyn Error);

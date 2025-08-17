@@ -39,7 +39,8 @@ macro_rules! test_rotate_right {
     };
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     test_rotate_right!(check_ror_u8, u8);
     test_rotate_right!(check_ror_u16, u16);

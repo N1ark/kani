@@ -31,7 +31,8 @@ impl Arbitrary for VecWrapper {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_any() {
     let wrap: VecWrapper = kani::any();
     assert!(wrap.is_valid());

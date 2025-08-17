@@ -41,7 +41,8 @@ impl Drop for DropSetCELLToInner {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     {
         let set_to_one = DropSetCELLToInner { set_cell_to: 1 };

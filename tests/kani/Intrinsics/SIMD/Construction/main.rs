@@ -17,7 +17,8 @@ impl i64x2 {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let y = i64x2([0, 1]);
     let z = i64x2([1, 2]);

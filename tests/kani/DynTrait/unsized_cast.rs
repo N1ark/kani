@@ -18,7 +18,8 @@ fn all_zero(num: Box<dyn Byte>) -> bool {
     num.eq(0x0)
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_box() {
     let num: u8 = kani::any();
     kani::assume(num != 0);
@@ -30,7 +31,8 @@ fn all_zero_ref(num: &dyn Byte) -> bool {
     num.eq(0x0)
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_ref() {
     let num: u8 = kani::any();
     kani::assume(num != 0);

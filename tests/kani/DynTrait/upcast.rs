@@ -22,7 +22,8 @@ struct Struct;
 impl SuperTrait1 for Struct {}
 impl SuperTrait2 for Struct {}
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let val: &dyn SubTrait = &Struct;
     (val as &dyn SuperTrait1).trigger(&());

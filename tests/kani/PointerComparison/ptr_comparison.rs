@@ -66,6 +66,7 @@ fn check_clamp<T: ?Sized>(object: *const T, smaller: *const T, bigger: *const T)
 
 /// Check comparison of thin pointers.
 #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_thin_ptr() {
     let array = [0u8; 10];
     let first_ptr: *const u8 = &array[0];
@@ -78,6 +79,7 @@ fn check_thin_ptr() {
 
 /// Check comparisons when slice size is the same but data pointer is different.
 #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_slice_data_ptr() {
     let array = [[0u8, 2]; 10];
     let first_ptr: *const [u8] = &array[0];
@@ -90,6 +92,7 @@ fn check_slice_data_ptr() {
 
 /// Check comparisons when slice size is different but the pointer is the same.
 #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_slice_len() {
     let array = [0u8; 10];
     let first_ptr: *const [u8] = &array[0..2];
@@ -102,6 +105,7 @@ fn check_slice_len() {
 
 // Check comparison of box.
 #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_box_comparison() {
     let obj = Box::new([0u16, 10]);
     let first: *const [u16] = &obj[1..2];

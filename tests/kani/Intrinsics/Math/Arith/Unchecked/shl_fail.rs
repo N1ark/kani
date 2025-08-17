@@ -5,7 +5,8 @@
 // Check that `unchecked_shl` triggers overflow checks.
 #![feature(core_intrinsics)]
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let a: u32 = kani::any();
     let b: u32 = kani::any();

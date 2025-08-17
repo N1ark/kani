@@ -7,7 +7,8 @@ use std::num::*;
 
 macro_rules! harness {
     ( $fn_name: ident, $type: ty ) => {
-        #[kani::proof]
+        #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
         fn $fn_name() {
             let v1 = kani::any::<$type>();
             assert!(v1.get() != 0, "Any should not generate value zero");

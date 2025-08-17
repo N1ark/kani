@@ -3,8 +3,9 @@
 //
 // Ensure that shifting negative values yields the expected results.
 
-#[kani::proof]
-#[kani::unwind(5)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(5))]
 fn sheck_shl() {
     let val: i32 = kani::any();
     let dist: u8 = kani::any();
@@ -12,8 +13,9 @@ fn sheck_shl() {
     assert_eq!(val << dist, val.wrapping_mul(2_i32.wrapping_pow(dist.into())));
 }
 
-#[kani::proof]
-#[kani::unwind(5)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(5))]
 fn check_shr() {
     let val: i32 = kani::any();
     let dist: u8 = kani::any();

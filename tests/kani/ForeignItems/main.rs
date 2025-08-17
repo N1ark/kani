@@ -36,7 +36,8 @@ extern "C" {
     fn takes_struct_ptr2(f: &Foo2) -> u32;
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     unsafe {
         assert!(S == 12);

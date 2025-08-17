@@ -8,7 +8,8 @@
 mod a_really_long_module_name {
     mod yet_another_really_long_module_name {
         mod one_more_really_long_module_name {
-            #[kani::proof]
+            #[cfg_attr(kani, kani::proof)]
+            #[cfg_attr(not(kani), test)]
             fn a_really_long_harness_name() {
                 assert_eq!(1, 1);
             }

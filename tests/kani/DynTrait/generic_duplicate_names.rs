@@ -18,7 +18,8 @@ impl<T> Foo<T> for () {
 
 impl Bar for () {}
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let b: &dyn Bar = &();
     // The vtable for b will now have two Foo::method entries,

@@ -14,7 +14,8 @@
 use std::ops::Coroutine;
 use std::pin::Pin;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let b = |_| 3;
     let mut a = #[coroutine]

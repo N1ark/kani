@@ -7,7 +7,8 @@ const fn my_const_fn() {
     panic!()
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn check_something() {
     let x: u8 = if kani::any() { 3 } else { 95 };
     if x > 100 {

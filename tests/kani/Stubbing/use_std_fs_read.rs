@@ -13,8 +13,9 @@ fn mock_read<P>(_: P) -> std::io::Result<Vec<u8>> {
     Ok(vec![42])
 }
 
-#[kani::proof]
-#[kani::stub(read, mock_read)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::stub(read, mock_read))]
 fn harness() {
     assert_eq!(read("ignored").unwrap()[0], 42);
 }

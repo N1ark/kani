@@ -40,7 +40,8 @@ mod array_based {
         assert_eq!(simd.into_array(), expected);
     }
 
-    #[kani::proof]
+    #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
     fn check_field_access() {
         let data: [u8; 16] = kani::any();
         let vec = CustomSimd(data.clone());
@@ -83,7 +84,8 @@ mod fields_based {
         assert_eq!(simd.into_array()[1], expected[1])
     }
 
-    #[kani::proof]
+    #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
     fn check_field_access() {
         let data: [u8; 16] = kani::any();
         let vec = CustomSimd([data[0], data[1]]);

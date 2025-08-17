@@ -58,8 +58,9 @@ fn expect_drops<T>(expected_drops: usize, f: impl FnOnce() -> T) -> T {
     res
 }
 
-#[kani::proof]
-#[kani::unwind(8)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(8))]
 fn main() {
     drain(
         &mut #[coroutine]

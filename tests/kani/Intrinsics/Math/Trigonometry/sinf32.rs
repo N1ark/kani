@@ -14,7 +14,8 @@ fn fp_equals(value: f32, expected: f32) -> bool {
     abs_diff <= f32::EPSILON
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn sine_range() {
     let x: f32 = kani::any();
     kani::assume(x.is_finite());
@@ -23,7 +24,8 @@ fn sine_range() {
     assert!(sine > -1.0 || fp_equals(sine, -1.0));
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn sine_const() {
     let x = 0.0;
     let sine = unsafe { std::intrinsics::sinf32(x) };

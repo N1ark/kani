@@ -5,7 +5,8 @@
 // Stable way of calling the `try` intrinsic.
 use std::panic;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let result = panic::catch_unwind(|| {
         println!("hello!");

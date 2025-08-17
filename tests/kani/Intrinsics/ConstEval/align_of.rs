@@ -10,7 +10,8 @@ struct MyStruct {}
 
 enum MyEnum {}
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     // for the following types x86_64 and aarch64 agree on the alignment; see
     // AlignOfVal/align_of_fat_ptr.rs for some example of where they don't agree

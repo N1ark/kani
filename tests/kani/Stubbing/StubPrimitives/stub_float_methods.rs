@@ -16,8 +16,9 @@ macro_rules! stub_floor {
         }
 
         // Harness
-        #[kani::proof]
-        #[kani::stub($ty::floor, $stub)]
+        #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+        #[cfg_attr(kani, kani::stub($ty::floor, $stub))]
         pub fn $harness() {
             let input = kani::any();
             let floor = <$ty>::floor(input);

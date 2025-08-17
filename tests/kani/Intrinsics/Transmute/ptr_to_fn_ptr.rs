@@ -11,7 +11,8 @@ fn foo() -> i32 {
     0
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let pointer = foo as *const ();
     let function = unsafe { std::mem::transmute::<*const (), fn() -> i32>(pointer) };

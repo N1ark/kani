@@ -42,7 +42,8 @@ fn weird_count(c: &mut dyn Iterator) -> usize {
     c.next().unwrap()
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let counter: &mut Counter = &mut Counter { count: 0 };
     assert!(std_count(counter as &mut dyn std::iter::Iterator<Item = usize>) == 1);

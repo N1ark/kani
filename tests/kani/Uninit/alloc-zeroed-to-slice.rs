@@ -5,7 +5,8 @@
 use std::alloc::{Layout, alloc_zeroed};
 use std::slice::from_raw_parts;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn alloc_zeroed_to_slice() {
     let layout = Layout::from_size_align(32, 8).unwrap();
     unsafe {

@@ -19,8 +19,9 @@ mod local_mod {
     }
 }
 
-#[kani::proof]
-#[kani::stub(local_mod::priv_fn, local_mod::the_answer)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::stub(local_mod::priv_fn, local_mod::the_answer))]
 fn main() {
     assert_eq!(local_mod::fn_delegating_to_priv_fn(), 42);
 }

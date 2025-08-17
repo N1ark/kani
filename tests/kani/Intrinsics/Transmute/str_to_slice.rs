@@ -7,7 +7,8 @@
 // This test is a modified version of the example found in
 // https://doc.rust-lang.org/std/intrinsics/fn.transmute.html
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let slice = unsafe { std::mem::transmute::<&str, &[u8]>("Rust") };
     assert_eq!(slice, &[82, 117, 115, 116]);

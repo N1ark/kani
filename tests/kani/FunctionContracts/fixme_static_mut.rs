@@ -6,8 +6,8 @@
 static mut WRAP_COUNTER: Option<u32> = None;
 
 /// This function is safe and should never crash. Counter starts at 0.
-#[kani::modifies(std::ptr::addr_of!(WRAP_COUNTER))]
-#[kani::ensures(|_| true)]
+#[cfg_attr(kani, kani::modifies(std::ptr::addr_of!(WRAP_COUNTER)))]
+#[cfg_attr(kani, kani::ensures(|_| true))]
 pub fn next() -> u32 {
     // Safe in single-threaded.
     unsafe {
@@ -27,13 +27,14 @@ pub fn next() -> u32 {
 /// This harness should succeed.
 ///
 /// Today, CBMC havocs WRAP_COUNTER, which includes invalid discriminants triggering UB.
-#[kani::proof_for_contract(next)]
+#[cfg_attr(kani, kani::proof_for_contract(next))]
 fn check_next() {
     let _ret = next();
 }
 
 /// Without contracts, we can safely verify `next`.
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_next_directly() {
     // First check that initial iteration returns 0 (base case).
     let first = next();

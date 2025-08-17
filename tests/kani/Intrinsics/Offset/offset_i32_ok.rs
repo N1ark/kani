@@ -5,7 +5,8 @@
 #![feature(core_intrinsics)]
 use std::intrinsics::offset;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_offset() {
     let arr: [i32; 3] = [1, 2, 3];
     let ptr: *const i32 = arr.as_ptr();

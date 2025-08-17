@@ -15,7 +15,8 @@ impl Drop for IncrementCELLWhenDropped {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     {
         let x1 = IncrementCELLWhenDropped {};

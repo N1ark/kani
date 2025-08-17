@@ -15,7 +15,8 @@ use std::ops::Coroutine;
 use std::ops::CoroutineState;
 use std::pin::Pin;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let x = 0i32;
     #[coroutine]

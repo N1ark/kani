@@ -7,7 +7,8 @@ fn check(s: &[u8]) {
     assert!(len >= 0 && len < 6, "Expected slice length to be between 0 and 5. Got {}.", len);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let arr: [u8; 5] = kani::any();
     // returns a slice of length between 0 and 5

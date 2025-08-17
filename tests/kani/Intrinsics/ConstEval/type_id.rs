@@ -10,7 +10,8 @@ struct MyStruct {}
 
 enum MyEnum {}
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let type_ids = [
         // Scalar types

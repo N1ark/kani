@@ -33,9 +33,10 @@ impl<T> LocalType<T> {
 
 // TODO: Split up these assertions into separate harnesses, once stubbing is able to support that.
 // <https://github.com/model-checking/kani/issues/1861>
-#[kani::proof]
-#[kani::stub(LocalType::pub_fn, LocalType::the_answer)]
-#[kani::stub(LocalType::priv_fn, LocalType::the_answer)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::stub(LocalType::pub_fn, LocalType::the_answer))]
+#[cfg_attr(kani, kani::stub(LocalType::priv_fn, LocalType::the_answer))]
 fn main() {
     assert_eq!(LocalType::<i32>::new().pub_fn(), 42);
     assert_eq!(LocalType::<String>::new().fn_delegating_to_priv_fn(), 42);

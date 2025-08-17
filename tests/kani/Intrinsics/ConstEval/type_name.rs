@@ -10,7 +10,8 @@ struct MyStruct {}
 
 enum MyEnum {}
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     // Scalar types
     const I8_NAME: &str = const { type_name::<i8>() };

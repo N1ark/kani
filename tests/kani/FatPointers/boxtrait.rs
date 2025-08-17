@@ -27,7 +27,8 @@ impl Trait for Concrete {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let mut x: Box<dyn Trait> = Box::new(Concrete::new());
     x.increment();

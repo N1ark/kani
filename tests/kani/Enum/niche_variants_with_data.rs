@@ -21,13 +21,15 @@ impl IsTrue for MyEnum {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn check_size() {
     let flag = MyEnum::Flag1(Some(true));
     assert_eq!(std::mem::size_of_val(&flag), 2);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn check_val() {
     let flag = MyEnum::Flag2(0, None);
     let is_true: &dyn IsTrue = &flag;

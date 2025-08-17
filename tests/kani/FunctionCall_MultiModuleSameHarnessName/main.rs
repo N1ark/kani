@@ -7,20 +7,23 @@
 //! issue #661 for details.
 
 mod first {
-    #[kani::proof]
+    #[cfg_attr(kani, kani::proof)]
+    #[cfg_attr(not(kani), test)]
     fn check() {
         assert_eq!(1 + 1, 2);
     }
 }
 
 mod second {
-    #[kani::proof]
+    #[cfg_attr(kani, kani::proof)]
+    #[cfg_attr(not(kani), test)]
     fn check() {
         assert_eq!(2 + 2, 4);
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn check() {
     assert_eq!(3 + 3, 6);
 }

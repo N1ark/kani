@@ -4,8 +4,9 @@
 
 // See https://github.com/model-checking/kani/issues/4226
 
-#[kani::proof]
-#[kani::solver(cvc5)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::solver(cvc5))]
 fn main() {
     const N: usize = 100;
     let a: [i32; N] = kani::any();
@@ -16,7 +17,8 @@ fn main() {
     assert!(kani::forall!(|j in (1, i+1)| a[j] < 10));
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn bounded() {
     const N: usize = 100;
     let a: [i32; N] = kani::any();

@@ -3,7 +3,8 @@
 
 // Check that we can codegen a boxed dyn closure
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     // Create a boxed once-callable closure
     let f: Box<dyn FnOnce(f32, i32)> = Box::new(|x, y| {

@@ -4,7 +4,8 @@
 // Regression test for https://github.com/model-checking/kani/issues/1489
 // Tests that memcmp and memcpy can be called with dangling pointers if the count is zero.
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     // Vec::new() creates a dangling pointer
     assert_eq!(Vec::<u8>::new(), Vec::<u8>::new());

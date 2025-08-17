@@ -10,7 +10,8 @@
 
 // NaN values in either `mag` or `sgn` can lead to spurious failures in these
 // harnesses, so they are excluded when needed.
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_copysign() {
     let mag: f64 = kani::any();
     let sig: f64 = kani::any();
@@ -27,7 +28,8 @@ fn test_copysign() {
     assert!(expected_res == res);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_copysign_mag_nan() {
     let mag: f64 = kani::any();
     let sig: f64 = kani::any();
@@ -46,7 +48,8 @@ fn test_copysign_mag_nan() {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_copysign_sig_neg_zero() {
     let mag: f64 = kani::any();
     let sig: f64 = -0.0;

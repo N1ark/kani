@@ -6,7 +6,8 @@
 // Covers the case where `a == T::MIN && b == -1`.
 #![feature(core_intrinsics)]
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let a: i32 = i32::MIN;
     let b: i32 = -1;

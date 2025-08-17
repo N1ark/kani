@@ -7,7 +7,8 @@ mod defs;
 use defs::*;
 use std::boxed::Box;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_double_coercion() {
     let id = kani::any();
     let inner: Box<Box<dyn Identity>> = Box::new(Box::new(Inner { id }));

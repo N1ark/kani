@@ -20,13 +20,13 @@ unsafe impl Sync for WithMut {}
 static ZERO_VAL: WithMut = WithMut { regular_field: 0, mut_field: UnsafeCell::new(0) };
 
 /// The regular field should be 0.
-#[kani::ensures(|result| *result == 0)]
+#[cfg_attr(kani, kani::ensures(|result| *result == 0))]
 pub fn regular_field() -> u8 {
     ZERO_VAL.regular_field
 }
 
 /// The mutable field can be anything.
-#[kani::ensures(|result| *result == old(unsafe { *ZERO_VAL.mut_field.get() }))]
+#[cfg_attr(kani, kani::ensures(|result| *result == old(unsafe { *ZERO_VAL.mut_field.get() })))]
 pub unsafe fn mut_field() -> u8 {
     unsafe { *ZERO_VAL.mut_field.get() }
 }
@@ -34,14 +34,14 @@ pub unsafe fn mut_field() -> u8 {
 /// This harness is duplicated in `fixme_static_interior_mut.rs`.
 /// Issue <>
 #[cfg(fixme)]
-#[kani::proof_for_contract(regular_field)]
+#[cfg_attr(kani, kani::proof_for_contract(regular_field))]
 fn check_regular_field_is_const() {
     assert_eq!(regular_field(), 0); // ** This should succeed since this field is constant.
 }
 
 // Ensure that Kani havoc the mutable field.
-#[kani::should_panic]
-#[kani::proof_for_contract(mut_field)]
+#[cfg_attr(kani, kani::should_panic)]
+#[cfg_attr(kani, kani::proof_for_contract(mut_field))]
 fn check_regular_field_is_const() {
     assert_eq!(unsafe { mut_field() }, 0); // ** This must fail since Kani havoc the mutable field.
 }

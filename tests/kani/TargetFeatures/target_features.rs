@@ -5,7 +5,8 @@
 /// architecture-specific target features (e.g. `neon` on `aarch64` and
 /// `sse`/`sse2` on `x86_64`)
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_expected_target_features() {
     #[cfg(target_arch = "aarch64")]
     {

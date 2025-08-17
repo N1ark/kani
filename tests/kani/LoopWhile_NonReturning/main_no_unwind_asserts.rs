@@ -21,8 +21,9 @@
 //
 // ** 0 of 1 failed (1 iterations)
 // VERIFICATION SUCCESSFUL
-#[kani::proof]
-#[kani::unwind(10)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(10))]
 fn main() {
     let mut a: u32 = kani::any();
 

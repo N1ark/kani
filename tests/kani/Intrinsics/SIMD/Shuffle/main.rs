@@ -31,7 +31,8 @@ impl i64x4 {
 #[repr(simd)]
 struct SimdShuffleIdx<const LEN: usize>([u32; LEN]);
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     {
         let y = i64x2([0, 1]);
@@ -58,7 +59,8 @@ fn main() {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_shuffle() {
     {
         let y = i64x2([0, 1]);

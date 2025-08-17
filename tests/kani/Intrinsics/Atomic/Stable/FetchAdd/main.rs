@@ -6,7 +6,8 @@
 
 use std::sync::atomic::{AtomicIsize, Ordering};
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     // pub fn fetch_add(&self, val: isize, order: Ordering) -> isize
     // Adds to the current value, returning the previous value.

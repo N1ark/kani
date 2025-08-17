@@ -1,7 +1,8 @@
 // Copyright Kani Contributors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let mut x: u32 = 4;
     let pointer0: std::ptr::NonNull<u32> = std::ptr::NonNull::new(&mut x).unwrap();

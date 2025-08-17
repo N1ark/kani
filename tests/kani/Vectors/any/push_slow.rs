@@ -3,7 +3,8 @@
 
 //! Variant of tests/kani/Vector/push.rs using any_vec. Slow due to
 //! performance issues involving any_vec. See #1329
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let mut v: Vec<isize> = kani::vec::any_vec::<_, 0>();
     v.push(72);

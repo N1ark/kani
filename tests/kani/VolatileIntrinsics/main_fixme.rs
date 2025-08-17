@@ -114,7 +114,8 @@ fn test_copy_volatile_nonoverlapping() {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     test_volatile_store();
     test_copy_volatile();

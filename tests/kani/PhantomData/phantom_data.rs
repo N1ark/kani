@@ -31,7 +31,8 @@ impl<Unit> Add for Length<Unit> {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     // `one_meter` has phantom type parameter `Mm`.
     let one_meter: Length<Mm> = Length(1000, PhantomData);

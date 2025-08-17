@@ -9,7 +9,8 @@
 // used as arguments of those macros
 #![deny(unused_variables)]
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn arg_in_macro() {
     let x: Option<i32> = None;
     match x {

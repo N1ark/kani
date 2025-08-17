@@ -6,7 +6,8 @@
 use std::mem;
 use std::ptr;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_swap() {
     let mut x = 12;
     let mut y = 13;

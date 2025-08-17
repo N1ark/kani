@@ -43,16 +43,18 @@ fn function_pointer_call(function_pointer: unsafe extern "C" fn(c_int) -> c_long
     assert_eq!(unsafe { function_pointer(libc::_SC_PAGESIZE) } as usize, 10);
 }
 
-#[kani::proof]
-#[kani::stub(libc::strlen, stubs::strlen)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::stub(libc::strlen, stubs::strlen))]
 fn standard() {
     let str: Box<c_char> = Box::new(4);
     let str_ptr: *const c_char = &*str;
     assert_eq!(unsafe { libc::strlen(str_ptr) }, 4);
 }
 
-#[kani::proof]
-#[kani::stub(libc::strlen, stubs::strlen)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::stub(libc::strlen, stubs::strlen))]
 fn function_pointer_standard() {
     let str: Box<c_char> = Box::new(4);
     let str_ptr: *const c_char = &*str;
@@ -60,14 +62,16 @@ fn function_pointer_standard() {
     assert_eq!(unsafe { new_ptr(str_ptr) }, 4);
 }
 
-#[kani::proof]
-#[kani::stub(libc::sysconf, stubs::sysconf)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::stub(libc::sysconf, stubs::sysconf))]
 fn function_pointer_with_layers() {
     deeper_call();
 }
 
-#[kani::proof]
-#[kani::stub(libc::sysconf, stubs::sysconf)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::stub(libc::sysconf, stubs::sysconf))]
 fn function_pointer_as_parameter() {
     type FunctionPointerType = unsafe extern "C" fn(c_int) -> c_longlong;
     let function_pointer: FunctionPointerType = libc::sysconf;

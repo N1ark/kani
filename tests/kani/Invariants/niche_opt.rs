@@ -31,7 +31,8 @@ fn to_option<T: Copy, E>(result: &Result<T, E>) -> Option<T> {
     if let Ok(v) = *result { Some(v) } else { None }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let result: Result<(), Error> = Ok(());
     assert!(to_option(&result).is_some());

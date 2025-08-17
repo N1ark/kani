@@ -28,7 +28,8 @@ pub fn find(key: &Key) -> Result<Metadata, defs::Error> {
 mod proof_harnesses {
     use super::*;
 
-    #[kani::proof]
+    #[cfg_attr(kani, kani::proof)]
+    #[cfg_attr(not(kani), test)]
     fn find_error() {
         let key = kani::any::<Key>();
         kani::assume(key > 0);

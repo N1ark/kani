@@ -28,7 +28,8 @@ impl Drop for B {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     t1();
     t2();

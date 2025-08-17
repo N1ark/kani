@@ -21,7 +21,8 @@ use std::ops::{Coroutine, CoroutineState};
 use std::pin::Pin;
 use std::thread;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn simple() {
     let mut foo = #[coroutine]
     || {
@@ -36,8 +37,9 @@ fn simple() {
     }
 }
 
-#[kani::proof]
-#[kani::unwind(4)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(4))]
 fn return_capture() {
     let a = String::from("foo");
     let mut foo = #[coroutine]
@@ -54,7 +56,8 @@ fn return_capture() {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn simple_yield() {
     let mut foo = #[coroutine]
     || {
@@ -71,8 +74,9 @@ fn simple_yield() {
     }
 }
 
-#[kani::proof]
-#[kani::unwind(4)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(4))]
 fn yield_capture() {
     let b = String::from("foo");
     let mut foo = #[coroutine]
@@ -90,8 +94,9 @@ fn yield_capture() {
     }
 }
 
-#[kani::proof]
-#[kani::unwind(4)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(4))]
 fn simple_yield_value() {
     let mut foo = #[coroutine]
     || {
@@ -109,8 +114,9 @@ fn simple_yield_value() {
     }
 }
 
-#[kani::proof]
-#[kani::unwind(4)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(4))]
 fn return_after_yield() {
     let a = String::from("foo");
     let mut foo = #[coroutine]

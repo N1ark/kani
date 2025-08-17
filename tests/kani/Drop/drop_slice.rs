@@ -5,7 +5,8 @@
 use std::sync::Arc;
 use std::sync::Mutex;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_drop_slice() {
     let _: Arc<Mutex<[u8]>> = Arc::new(Mutex::new([10, 0]));
 }

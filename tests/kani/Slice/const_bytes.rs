@@ -4,7 +4,8 @@
 //! This test checks that byte slices are codegen correctly. This used to fail
 //! in the past (see https://github.com/model-checking/kani/issues/2656).
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     const MY_CONSTANT: &[u8] = &[147, 211];
     let x: u8 = MY_CONSTANT[0];

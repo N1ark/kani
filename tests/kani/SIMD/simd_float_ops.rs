@@ -17,7 +17,8 @@ impl f32x2 {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_sum() {
     let a = f32x2([0.0, 0.0]);
     let b = kani::any::<f32x2>();
@@ -27,7 +28,8 @@ fn check_sum() {
     assert_eq!(sum.as_array(), b.as_array());
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_sum_portable() {
     let a = f32x4::splat(0.0);
     let b = f32x4::from_array(kani::any());

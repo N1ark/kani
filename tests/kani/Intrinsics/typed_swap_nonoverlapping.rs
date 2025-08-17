@@ -7,7 +7,8 @@
 #![feature(core_intrinsics)]
 #![allow(internal_features)]
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_typed_swap_nonoverlapping_u32() {
     let mut a: u32 = kani::any();
     let a_before = a;
@@ -20,7 +21,8 @@ fn test_typed_swap_nonoverlapping_u32() {
     assert!(a == b_before);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn check_swap_unit() {
     let mut x: () = kani::any();
     let mut y: () = kani::any();

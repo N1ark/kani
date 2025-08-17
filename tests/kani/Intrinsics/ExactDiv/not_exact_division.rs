@@ -6,7 +6,8 @@
 // https://doc.rust-lang.org/std/intrinsics/fn.exact_div.html
 #![feature(core_intrinsics)]
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let x = 9;
     let y = 4;

@@ -15,7 +15,8 @@ fn call_on(input: u32, func: Option<unsafe extern "C" fn(u32) -> u32>) -> Option
     func.and_then(|f| Some(unsafe { f(input) }))
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_extern_fn_ptr() {
     let input: u32 = kani::any();
     assert_eq!(call_on(0, None), None);

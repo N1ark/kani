@@ -4,7 +4,8 @@
 // Check that `copy` works as expected: Copies a number `n` of elements from
 // pointer `src` to pointer `dst`, even if their regions overlap.
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_copy_simple() {
     let mut expected_val = 42;
     let src: *mut i32 = &mut expected_val as *mut i32;
@@ -16,7 +17,8 @@ fn test_copy_simple() {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_copy_with_overlap() {
     let arr: [i32; 3] = [0, 1, 0];
     let src: *const i32 = arr.as_ptr();

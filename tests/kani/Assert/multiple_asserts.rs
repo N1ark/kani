@@ -3,7 +3,8 @@
 
 // kani-verify-fail
 // Check that this doesn't trigger a fake loop. See issue #636.
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let x: bool = kani::any();
     if x {

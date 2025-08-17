@@ -4,7 +4,8 @@
 // Check that Kani doesn't get stuck on a program involving a Vector of u8
 // https://github.com/model-checking/kani/issues/703
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let mut v: Vec<u8> = Vec::new();
     v.push(5);

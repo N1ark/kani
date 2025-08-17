@@ -20,16 +20,17 @@ mod mod1 {
             12
         }
 
-        #[kani::proof]
-        #[kani::stub(f1, crate::magic_number)]
-        #[kani::stub(f2, super::super::magic_number)]
-        #[kani::stub(f3, self::super::super::magic_number)]
-        #[kani::stub(g1, crate::mod1::magic_number)]
-        #[kani::stub(g2, super::magic_number)]
-        #[kani::stub(g3, self::super::magic_number)]
-        #[kani::stub(h1, crate::mod1::mod2::magic_number)]
-        #[kani::stub(h2, super::mod2::magic_number)]
-        #[kani::stub(h3, self::magic_number)]
+        #[cfg_attr(kani, kani::proof)]
+        #[cfg_attr(not(kani), test)]
+        #[cfg_attr(kani, kani::stub(f1, crate::magic_number))]
+        #[cfg_attr(kani, kani::stub(f2, super::super::magic_number))]
+        #[cfg_attr(kani, kani::stub(f3, self::super::super::magic_number))]
+        #[cfg_attr(kani, kani::stub(g1, crate::mod1::magic_number))]
+        #[cfg_attr(kani, kani::stub(g2, super::magic_number))]
+        #[cfg_attr(kani, kani::stub(g3, self::super::magic_number))]
+        #[cfg_attr(kani, kani::stub(h1, crate::mod1::mod2::magic_number))]
+        #[cfg_attr(kani, kani::stub(h2, super::mod2::magic_number))]
+        #[cfg_attr(kani, kani::stub(h3, self::magic_number))]
         fn harness() {
             assert_eq!(f1(), 10);
             assert_eq!(f2(), 10);

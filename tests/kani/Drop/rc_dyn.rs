@@ -48,7 +48,8 @@ impl Drop for Table {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_rc_dyn_value() {
     let val = kani::any();
     let table = Table::new(val);
@@ -56,7 +57,8 @@ fn check_rc_dyn_value() {
     assert_eq!(furniture.cost(), table.cost());
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_rc_dyn_drop() {
     let table = Table::new_furniture(kani::any());
     let furniture = table.clone();
@@ -75,7 +77,8 @@ fn check_rc_dyn_drop() {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_rc_dyn_raw_parts() {
     let table = Table::new_furniture(kani::any());
     let furniture = table.clone();
@@ -86,7 +89,8 @@ fn check_rc_dyn_raw_parts() {
     assert_eq!(table_vtable, furn_vtable);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_rc_dyn_diff_raw_parts() {
     let table = Table::new_furniture(kani::any());
     let furniture = Table::new_furniture(kani::any());

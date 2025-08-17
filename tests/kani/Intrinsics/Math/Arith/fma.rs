@@ -1,7 +1,8 @@
 // Copyright Kani Contributors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn verify_fma_32() {
     let m = 10.0_f32;
     let x = 4.0_f32;
@@ -13,7 +14,8 @@ fn verify_fma_32() {
     assert!(abs_difference <= f32::EPSILON);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn verify_fma_64() {
     let m = 10.0_f64;
     let x = 4.0_f64;

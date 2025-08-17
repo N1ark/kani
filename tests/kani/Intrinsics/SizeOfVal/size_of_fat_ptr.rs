@@ -15,6 +15,7 @@ struct A {
 impl T for A {}
 
 #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_size_simple() {
     let a = A { id: 0 };
     let t: &dyn T = &a;
@@ -37,6 +38,7 @@ impl<T: ?Sized> Wrapper<T> for Concrete<'_, T> {
 }
 
 #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_size_inner() {
     let val = 10u8;
     let conc_wrapper: Concrete<u8> = Concrete { inner: &val };

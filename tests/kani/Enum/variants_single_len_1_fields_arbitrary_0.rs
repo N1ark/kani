@@ -5,7 +5,8 @@ pub enum EnumSingle {
     MySingle,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let e = EnumSingle::MySingle;
     assert!(e == EnumSingle::MySingle);

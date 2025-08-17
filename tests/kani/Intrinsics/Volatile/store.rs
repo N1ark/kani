@@ -14,7 +14,8 @@ struct NonPacked {
     unaligned: u32,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let mut packed: NonPacked = unsafe { std::mem::zeroed() };
     // Take the address of a 32-bit integer which is not aligned.
@@ -28,7 +29,8 @@ fn main() {
 }
 
 /// Check that volatile store also works for ZST.
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn check_zst_volatile_store() {
     let mut dst = ();
     unsafe {

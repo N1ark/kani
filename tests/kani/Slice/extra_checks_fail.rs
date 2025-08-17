@@ -7,7 +7,8 @@
 //! Empty slices use dangling pointers. With extra pointer checks, this test fails due to
 //! arithmetic operations using a dangling pointer
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_empty_fails() {
     let vec = Vec::<f32>::new();
     for float in vec {

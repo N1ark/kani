@@ -31,7 +31,8 @@ fn checkMaybe() -> MyResult<!, !, u8> {
     change_maybe(MyResult::<!, !, u32>::Maybe(10), 0)
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn harness_residual() {
     let _ = checkMaybe();
     let _ = checkErr();

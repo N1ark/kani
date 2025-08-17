@@ -16,8 +16,9 @@ pub mod slices_check {
     }
 
     // This fails since `<[T]>::len` is lowered to `Rvalue::Len`.
-    #[kani::proof]
-    #[kani::stub(<[MyStruct]>::len, stub_len_is_10)]
+    #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+    #[cfg_attr(kani, kani::stub(<[MyStruct]>::len, stub_len_is_10))]
     pub fn check_stub_len_is_10() {
         let input: [MyStruct; 5] = kani::any();
         let slice = kani::slice::any_slice_of_array(&input);

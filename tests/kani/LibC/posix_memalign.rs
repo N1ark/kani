@@ -15,7 +15,8 @@ struct MyStruct {
     data: [u128; 10],
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn alloc_zeroed() {
     let layout = Layout::new::<MyStruct>();
     let ptr = System.allocate_zeroed(layout).unwrap();
@@ -29,13 +30,15 @@ unsafe fn aligned_malloc(layout: &Layout) -> *mut u8 {
     if ret != 0 { ptr::null_mut() } else { out as *mut u8 }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn aligned_malloc_main() {
     let mut layout = Layout::from_size_align(0, 1);
     let _mem = unsafe { aligned_malloc(&layout.unwrap()) };
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn posix_memalign_incorrect_alignment() {
     let mut out = ptr::null_mut();
     let small_page_size = 1;

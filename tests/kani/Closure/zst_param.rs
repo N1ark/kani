@@ -12,7 +12,8 @@ fn invoke(input: usize, f: fn(Void, usize, Void) -> usize) -> usize {
     f(Void, input, Void)
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_zst_param() {
     let input = kani::any();
     let closure = |a: Void, out: usize, b: Void| {

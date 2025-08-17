@@ -8,6 +8,7 @@
 // This test catches this problem.
 
 #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn main() {
     let first = test(0u8);
     let second = test(0u16);

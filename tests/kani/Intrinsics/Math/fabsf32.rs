@@ -5,7 +5,8 @@
 // is not NaN, otherwise NaN
 #![feature(core_intrinsics)]
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_abs_finite() {
     let x: f32 = kani::any();
     kani::assume(!x.is_nan());
@@ -17,7 +18,8 @@ fn test_abs_finite() {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_abs_nan() {
     let x: f32 = kani::any();
     kani::assume(x.is_nan());

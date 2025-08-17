@@ -1,7 +1,8 @@
 // Copyright Kani Contributors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_thin_ptr() {
     let array = [0, 1, 2, 3, 4, 5, 6];
     let second_ptr: *const i32 = &array[3];

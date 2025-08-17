@@ -25,9 +25,10 @@ mod local_mod {
 
 // TODO: Split up these assertions into separate harnesses, once stubbing is able to support that.
 // <https://github.com/model-checking/kani/issues/1861>
-#[kani::proof]
-#[kani::stub(local_fn, the_answer)]
-#[kani::stub(local_mod::pub_fn, the_answer)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::stub(local_fn, the_answer))]
+#[cfg_attr(kani, kani::stub(local_mod::pub_fn, the_answer))]
 fn main() {
     assert_eq!(local_fn(), 42);
     assert_eq!(local_mod::pub_fn(), 42);

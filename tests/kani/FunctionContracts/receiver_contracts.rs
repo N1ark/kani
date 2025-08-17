@@ -36,53 +36,53 @@ impl kani::Arbitrary for CharASCII {
 /// This type contains unsafe setter functions with the same contract but different type of
 /// receivers.
 impl CharASCII {
-    #[kani::modifies(&self.0)]
-    #[kani::requires(new_val <= 128)]
-    #[kani::ensures(|_| self.0 == new_val)]
+    #[cfg_attr(kani, kani::modifies(&self.0))]
+    #[cfg_attr(kani, kani::requires(new_val <= 128))]
+    #[cfg_attr(kani, kani::ensures(|_| self.0 == new_val))]
     unsafe fn set_val(&mut self, new_val: u8) {
         self.0 = new_val
     }
 
-    #[kani::modifies(&self.0)]
-    #[kani::requires(new_val <= 128)]
-    #[kani::ensures(|_| self.0 == new_val)]
+    #[cfg_attr(kani, kani::modifies(&self.0))]
+    #[cfg_attr(kani, kani::requires(new_val <= 128))]
+    #[cfg_attr(kani, kani::ensures(|_| self.0 == new_val))]
     unsafe fn set_mut_ref(self: &mut Self, new_val: u8) {
         self.0 = new_val
     }
 
-    #[kani::modifies(&self.as_ref().0)]
-    #[kani::requires(new_val <= 128)]
-    #[kani::ensures(|_| self.as_ref().0 == new_val)]
+    #[cfg_attr(kani, kani::modifies(&self.as_ref().0))]
+    #[cfg_attr(kani, kani::requires(new_val <= 128))]
+    #[cfg_attr(kani, kani::ensures(|_| self.as_ref().0 == new_val))]
     unsafe fn set_box(mut self: Box<Self>, new_val: u8) {
         self.as_mut().0 = new_val
     }
 
-    #[kani::modifies(&self.as_ref().0)]
-    #[kani::requires(new_val <= 128)]
-    #[kani::ensures(|_| self.as_ref().0 == new_val)]
+    #[cfg_attr(kani, kani::modifies(&self.as_ref().0))]
+    #[cfg_attr(kani, kani::requires(new_val <= 128))]
+    #[cfg_attr(kani, kani::ensures(|_| self.as_ref().0 == new_val))]
     unsafe fn set_rc(mut self: Rc<Self>, new_val: u8) {
         Rc::<_>::get_mut(&mut self).unwrap().0 = new_val
     }
 
     /// We cannot specify the counter today which is modified in this function.
     /// <https://github.com/model-checking/kani/issues/3372>
-    #[kani::modifies(&self.as_ref().0)]
-    #[kani::requires(new_val <= 128)]
-    #[kani::ensures(|_| self.as_ref().0 == new_val)]
+    #[cfg_attr(kani, kani::modifies(&self.as_ref().0))]
+    #[cfg_attr(kani, kani::requires(new_val <= 128))]
+    #[cfg_attr(kani, kani::ensures(|_| self.as_ref().0 == new_val))]
     unsafe fn set_arc(mut self: Arc<Self>, new_val: u8) {
         Arc::<_>::get_mut(&mut self).unwrap().0 = new_val;
     }
 
-    #[kani::modifies(&self.0)]
-    #[kani::requires(new_val <= 128)]
-    #[kani::ensures(|_| self.0 == new_val)]
+    #[cfg_attr(kani, kani::modifies(&self.0))]
+    #[cfg_attr(kani, kani::requires(new_val <= 128))]
+    #[cfg_attr(kani, kani::ensures(|_| self.0 == new_val))]
     unsafe fn set_pin(mut self: Pin<&mut Self>, new_val: u8) {
         self.0 = new_val
     }
 
-    #[kani::modifies(&self.0)]
-    #[kani::requires(new_val <= 128)]
-    #[kani::ensures(|_| self.0 == new_val)]
+    #[cfg_attr(kani, kani::modifies(&self.0))]
+    #[cfg_attr(kani, kani::requires(new_val <= 128))]
+    #[cfg_attr(kani, kani::ensures(|_| self.0 == new_val))]
     unsafe fn set_pin_box(mut self: Pin<Box<Self>>, new_val: u8) {
         self.0 = new_val
     }
@@ -92,7 +92,7 @@ mod verify {
     use super::*;
     use kani::Arbitrary;
 
-    #[kani::proof_for_contract(CharASCII::set_val)]
+    #[cfg_attr(kani, kani::proof_for_contract(CharASCII::set_val))]
     fn check_set_val() {
         let mut obj = CharASCII::any();
         let original = obj.0;
@@ -100,7 +100,7 @@ mod verify {
         unsafe { obj.set_val(new_val) };
     }
 
-    #[kani::proof_for_contract(CharASCII::set_mut_ref)]
+    #[cfg_attr(kani, kani::proof_for_contract(CharASCII::set_mut_ref))]
     fn check_mut_ref() {
         let mut obj = CharASCII::any();
         let original = obj.0;
@@ -108,7 +108,7 @@ mod verify {
         unsafe { obj.set_mut_ref(new_val) };
     }
 
-    #[kani::proof_for_contract(CharASCII::set_box)]
+    #[cfg_attr(kani, kani::proof_for_contract(CharASCII::set_box))]
     fn check_box() {
         let obj = CharASCII::any();
         let original = obj.0;
@@ -116,7 +116,7 @@ mod verify {
         unsafe { Box::new(obj).set_box(new_val) };
     }
 
-    #[kani::proof_for_contract(CharASCII::set_rc)]
+    #[cfg_attr(kani, kani::proof_for_contract(CharASCII::set_rc))]
     fn check_rc() {
         let obj = CharASCII::any();
         let original = obj.0;
@@ -129,7 +129,7 @@ mod verify {
     /// the allocation.
     /// <https://github.com/model-checking/kani/issues/3372>
     #[cfg(arc_fails)]
-    #[kani::proof_for_contract(CharASCII::set_arc)]
+    #[cfg_attr(kani, kani::proof_for_contract(CharASCII::set_arc))]
     fn check_arc() {
         let obj = CharASCII::any();
         let original = obj.0;
@@ -137,7 +137,7 @@ mod verify {
         unsafe { Arc::new(obj).set_arc(new_val) };
     }
 
-    #[kani::proof_for_contract(CharASCII::set_pin)]
+    #[cfg_attr(kani, kani::proof_for_contract(CharASCII::set_pin))]
     fn check_pin() {
         let mut obj = CharASCII::any();
         let original = obj.0;
@@ -145,7 +145,7 @@ mod verify {
         unsafe { Pin::new(&mut obj).set_pin(new_val) };
     }
 
-    #[kani::proof_for_contract(CharASCII::set_pin_box)]
+    #[cfg_attr(kani, kani::proof_for_contract(CharASCII::set_pin_box))]
     fn check_pin_box() {
         let obj = CharASCII::any();
         let original = obj.0;

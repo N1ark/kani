@@ -5,21 +5,24 @@
 fn foo<F: Fn()>(_func: &mut F) {}
 fn foo_dyn(_func: &mut dyn Fn()) {}
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_foo() {
     fn f() {}
 
     foo(&mut f);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_foo_dyn() {
     fn f() {}
 
     foo_dyn(&mut f);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_foo_unused() {
     fn f() {}
 

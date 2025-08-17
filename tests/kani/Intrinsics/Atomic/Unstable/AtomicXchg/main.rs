@@ -7,7 +7,8 @@
 #![feature(core_intrinsics)]
 use std::intrinsics::{AtomicOrdering, atomic_xchg};
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let mut a1 = 0 as u8;
     let mut a2 = 0 as u8;

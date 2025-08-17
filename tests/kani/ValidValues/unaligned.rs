@@ -12,7 +12,8 @@ struct Packed {
     c: char,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn check_packed_deref() {
     let packed: Packed = kani::any();
     assert!(kani::mem::can_dereference(addr_of!(packed)));
@@ -20,7 +21,8 @@ pub fn check_packed_deref() {
     assert!(!kani::mem::can_dereference(addr_of!(packed.c)));
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn check_packed_read_unaligned() {
     let packed: Packed = kani::any();
     assert!(kani::mem::can_read_unaligned(addr_of!(packed)));
@@ -28,7 +30,8 @@ pub fn check_packed_read_unaligned() {
     assert!(kani::mem::can_read_unaligned(addr_of!(packed.c)));
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn check_packed_read_unaligned_invalid_value() {
     const SZ: usize = size_of::<Packed>();
     let val = [u8::MAX; SZ];

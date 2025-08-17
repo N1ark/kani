@@ -26,8 +26,9 @@ fn test<T: kani::Arbitrary + std::cmp::PartialEq + Clone>() {
     assert_eq!(var1, old_var2);
 }
 
-#[kani::proof]
-#[kani::unwind(9)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(9))]
 fn main() {
     test::<i32>();
     test::<char>();

@@ -13,7 +13,8 @@ pub struct Container<T> {
     container: Pointer<T>,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let x: u32 = 4;
     let my_container = Container { container: Pointer { pointer: &x } };

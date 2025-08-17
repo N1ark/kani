@@ -10,35 +10,40 @@
 #![feature(core_intrinsics)]
 use std::intrinsics::roundf64;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_one() {
     let one = 1.0;
     let result = unsafe { roundf64(one) };
     assert!(result == 1.0);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_one_frac() {
     let one_frac = 1.9;
     let result = unsafe { roundf64(one_frac) };
     assert!(result == 2.0);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_conc() {
     let conc = -42.6;
     let result = unsafe { roundf64(conc) };
     assert!(result == -43.0);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_conc_sci() {
     let conc = 5.4e-2;
     let result = unsafe { roundf64(conc) };
     assert!(result == 0.0);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_towards_closer() {
     let x: f64 = kani::any();
     kani::assume(!x.is_nan());
@@ -60,7 +65,8 @@ fn test_towards_closer() {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_diff_half_one() {
     let x: f64 = kani::any();
     kani::assume(!x.is_nan());

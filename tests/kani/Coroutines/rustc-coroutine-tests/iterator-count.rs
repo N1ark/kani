@@ -38,8 +38,9 @@ fn test() -> impl Coroutine<(), Return = (), Yield = u8> + Unpin {
     }
 }
 
-#[kani::proof]
-#[kani::unwind(11)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(11))]
 fn main() {
     let end = 11;
 

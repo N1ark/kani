@@ -1,7 +1,8 @@
 // Copyright Kani Contributors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn verify_powi32() {
     let x: f32 = kani::any();
     kani::assume(x.is_normal());
@@ -11,7 +12,8 @@ fn verify_powi32() {
     assert!(x2 >= 0.0);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn verify_powi64() {
     let x: f64 = kani::any();
     kani::assume(x.is_normal());

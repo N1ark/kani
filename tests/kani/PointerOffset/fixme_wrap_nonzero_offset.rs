@@ -9,7 +9,8 @@
 /// Invoking `wrapping_byte_offset` should return a pointer that is different from the original
 /// pointer if the offset value is not 0.
 /// See issue [#1150](https://github.com/model-checking/kani/issues/1150).
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn fixme_incorrect_wrapping_offset() {
     let ptr: *const u8 = &0u8;
     let offset = kani::any_where(|v: &isize| *v != 0);

@@ -27,7 +27,8 @@ macro_rules! check_float_to_int_unchecked_no_assert {
     };
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_f16_to_int_unchecked() {
     check_float_to_int_unchecked_no_assert!(f16, u8);
     check_float_to_int_unchecked_no_assert!(f16, u16);
@@ -43,7 +44,8 @@ fn check_f16_to_int_unchecked() {
     check_float_to_int_unchecked_no_assert!(f16, isize);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_f32_to_int_unchecked() {
     check_float_to_int_unchecked!(f32, u8);
     check_float_to_int_unchecked!(f32, u16);
@@ -59,7 +61,8 @@ fn check_f32_to_int_unchecked() {
     check_float_to_int_unchecked!(f32, isize);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_f64_to_int_unchecked() {
     check_float_to_int_unchecked!(f64, u8);
     check_float_to_int_unchecked!(f64, u16);
@@ -75,7 +78,8 @@ fn check_f64_to_int_unchecked() {
     check_float_to_int_unchecked!(f64, isize);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_f128_to_int_unchecked() {
     check_float_to_int_unchecked_no_assert!(f128, u8);
     check_float_to_int_unchecked_no_assert!(f128, u16);

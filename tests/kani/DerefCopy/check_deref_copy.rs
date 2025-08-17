@@ -5,7 +5,8 @@
 
 /// Adapted from:
 /// <https://github.com/rust-lang/rust/blob/29c5a028b0c92aa5da6a8eb6d6585a389fcf1035/src/test/mir-opt/derefer_test.rs>
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_deref_copy() {
     let mut a = (42, 43);
     let mut b = (99, &mut a);

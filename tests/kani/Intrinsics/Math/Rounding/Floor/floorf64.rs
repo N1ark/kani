@@ -9,42 +9,48 @@
 #![feature(core_intrinsics)]
 use std::intrinsics::floorf64;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_one() {
     let one = 1.0;
     let result = unsafe { floorf64(one) };
     assert!(result == 1.0);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_one_frac() {
     let one_frac = 1.2;
     let result = unsafe { floorf64(one_frac) };
     assert!(result == 1.0);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_one_neg() {
     let one_neg = -1.8;
     let result = unsafe { floorf64(one_neg) };
     assert!(result == -2.0);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_conc() {
     let conc = -42.6;
     let result = unsafe { floorf64(conc) };
     assert!(result == -43.0);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_conc_sci() {
     let conc = 5.4e-2;
     let result = unsafe { floorf64(conc) };
     assert!(result == 0.0);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_towards_neg_inf() {
     let x: f64 = kani::any();
     kani::assume(!x.is_nan());
@@ -52,7 +58,8 @@ fn test_towards_neg_inf() {
     assert!(result <= x);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_diff_one() {
     let x: f64 = kani::any();
     kani::assume(!x.is_nan());

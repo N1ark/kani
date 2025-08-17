@@ -37,21 +37,24 @@ impl kani::Invariant for Percentage {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_assume_safe() {
     let percentage: Percentage = kani::any();
     kani::assume(percentage.is_safe());
     assert!(percentage.value() <= 100);
 }
 
-#[kani::proof]
-#[kani::should_panic]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::should_panic)]
 fn check_assert_safe() {
     let percentage: Percentage = kani::any();
     assert!(percentage.is_safe());
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_increase_safe() {
     let percentage: Percentage = kani::any();
     kani::assume(percentage.is_safe());

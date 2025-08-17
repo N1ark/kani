@@ -4,7 +4,8 @@
 
 //! This test checks that `kani::float::float_to_int_in_range` works as expected
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_float_to_int_in_range() {
     let f: f32 = 5.6;
     let fits_in_u16 = kani::float::float_to_int_in_range::<f32, u16>(f);

@@ -6,7 +6,8 @@
 #![feature(rustc_private)]
 extern crate libc;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let page_size = unsafe { libc::sysconf(libc::_SC_PAGESIZE) } as usize;
 }

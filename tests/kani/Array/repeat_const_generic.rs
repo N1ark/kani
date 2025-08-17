@@ -20,7 +20,8 @@ impl<const N: usize> Foo<N> {
 mod proofs {
     use super::*;
 
-    #[kani::proof]
+    #[cfg_attr(kani, kani::proof)]
+    #[cfg_attr(not(kani), test)]
     fn hope_kani_does_not_crash() {
         let x = Foo::<32>::new();
         assert!(x.field.len() == 32);

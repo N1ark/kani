@@ -28,7 +28,8 @@ impl Subscriber for DummySubscriber {
     fn interest_list(&self) {}
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let s: Arc<Mutex<dyn Subscriber>> = Arc::new(Mutex::new(DummySubscriber::new()));
 }

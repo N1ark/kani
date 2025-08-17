@@ -53,7 +53,8 @@ macro_rules! test_saturating_intrinsics {
     };
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     test_saturating_intrinsics!(u8);
     test_saturating_intrinsics!(u16);

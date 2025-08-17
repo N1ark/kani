@@ -15,7 +15,8 @@ fn check(slice: &[u8]) {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let arr = [1, 2, 3];
     // The slice returned can be any of the following:

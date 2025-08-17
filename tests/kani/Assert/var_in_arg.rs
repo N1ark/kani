@@ -9,7 +9,8 @@
 // arguments of those macros
 #![deny(unused_variables)]
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_assert_with_arg() {
     let s = "foo";
     assert!(1 + 1 == 2, "An assertion message that refers to a variable {}", s);

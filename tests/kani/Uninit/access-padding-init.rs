@@ -7,7 +7,8 @@ use std::ptr::addr_of;
 #[repr(C)]
 struct S(u32, u8);
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn access_padding_init() {
     let s = S(0, 0);
     let ptr: *const u8 = addr_of!(s) as *const u8;

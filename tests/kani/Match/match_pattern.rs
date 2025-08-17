@@ -41,14 +41,16 @@ impl AbstractInt {
 mod test {
     use super::*;
 
-    #[kani::proof]
+    #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
     fn merge_with_bottom() {
         let x: AbstractInt = kani::any();
         assert!(x.merge(AbstractInt::Bottom) == x);
         assert!(AbstractInt::Bottom.merge(x) == x)
     }
 
-    #[kani::proof]
+    #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
     fn check_equivalence() {
         let x: AbstractInt = kani::any();
         let y: AbstractInt = kani::any();

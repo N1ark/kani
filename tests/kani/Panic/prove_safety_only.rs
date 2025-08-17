@@ -4,14 +4,16 @@
 // kani-flags: -Z unstable-options --prove-safety-only
 //! Test that --prove-safety-only works
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn div0() -> i32 {
     let x: i32 = kani::any();
     let y: i32 = kani::any();
     x / y
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn assert_hides_ub() {
     let arr: [u8; 5] = kani::any();
     let mut bytes = kani::slice::any_slice_of_array(&arr);

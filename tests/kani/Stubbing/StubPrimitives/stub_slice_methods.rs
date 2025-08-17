@@ -11,8 +11,9 @@ pub mod str_check {
         false
     }
 
-    #[kani::proof]
-    #[kani::stub(str::is_ascii, stub_is_ascii_false)]
+    #[cfg_attr(kani, kani::proof)]
+    #[cfg_attr(not(kani), test)]
+    #[cfg_attr(kani, kani::stub(str::is_ascii, stub_is_ascii_false))]
     pub fn check_stub_is_ascii() {
         let input = "is_ascii";
         assert!(!input.is_ascii());
@@ -26,8 +27,9 @@ pub mod slices_check {
 
     pub fn stub_sort_noop<T>(_: &mut [T]) {}
 
-    #[kani::proof]
-    #[kani::stub(<[MyStruct]>::sort, stub_sort_noop)]
+    #[cfg_attr(kani, kani::proof)]
+    #[cfg_attr(not(kani), test)]
+    #[cfg_attr(kani, kani::stub(<[MyStruct]>::sort, stub_sort_noop))]
     pub fn check_stub_sort_noop() {
         let mut input: [MyStruct; 5] = kani::any();
         let copy = input.clone();

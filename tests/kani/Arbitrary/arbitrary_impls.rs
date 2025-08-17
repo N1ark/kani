@@ -4,8 +4,9 @@
 //! Check that the Arbitrary implementations that we include in the kani library respect the
 //! underlying types invariant.
 
-#[kani::proof]
-#[kani::unwind(4)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(4))]
 fn check_any_array() {
     let arr: [bool; 2] = kani::any();
     assert!((0..=1).contains(&(arr[0] as u8)));
@@ -13,7 +14,8 @@ fn check_any_array() {
 }
 
 /// The only valid bit values for a boolean variable are 0x0 (false) and 0x1 (true).
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_any_bool() {
     let b: bool = kani::any();
     match b {
@@ -23,7 +25,8 @@ fn check_any_bool() {
     assert!(matches!(b, true | false));
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_any_char() {
     let c: char = kani::any();
     assert!(c <= char::MAX);

@@ -14,8 +14,9 @@ macro_rules! stub_count_ones {
         }
 
         // Harness
-        #[kani::proof]
-        #[kani::stub($ty::count_ones, $stub)]
+        #[cfg_attr(kani, kani::proof)]
+        #[cfg_attr(not(kani), test)]
+        #[cfg_attr(kani, kani::stub($ty::count_ones, $stub))]
         pub fn $harness() {
             let input = kani::any();
             let ones = <$ty>::count_ones(input);

@@ -8,7 +8,8 @@ fn copysign(a: f64, _b: f64) -> f64 {
     a
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn harness() {
     let a: f64 = kani::any();
     let b: f64 = kani::any();

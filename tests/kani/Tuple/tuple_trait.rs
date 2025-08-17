@@ -12,7 +12,8 @@ extern "rust-call" fn foo<T: std::marker::Tuple>(_: T) -> usize {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     assert_eq!(foo(()), 1);
     assert_eq!(foo(()), 2);

@@ -12,7 +12,8 @@ struct Foo((u32, u32));
 
 /// Adapted from:
 /// <https://github.com/rust-lang/rust/blob/29c5a028b0c92aa5da6a8eb6d6585a389fcf1035/src/test/ui/type-alias-impl-trait/issue-96572-unconstrained-upvar.rs>
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_unconstrained_upvar() {
     type T = impl Copy;
     let foo: T = Foo((1u32, 2u32));
@@ -25,7 +26,8 @@ fn check_unconstrained_upvar() {
 
 /// Adapted from:
 /// <https://github.com/rust-lang/rust/blob/29c5a028b0c92aa5da6a8eb6d6585a389fcf1035/src/test/ui/type-alias-impl-trait/issue-96572-unconstrained-struct.rs>
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_unconstrained_struct() {
     type U = impl Copy;
     let foo: U = Foo((1u32, 2u32));
@@ -36,7 +38,8 @@ fn check_unconstrained_struct() {
 
 /// Adapted from:
 /// <https://github.com/rust-lang/rust/issues/96572#issuecomment-1125117692>
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_unpack_option_tuple() {
     type T = impl Copy;
     let foo: T = Some((1u32, 2u32));

@@ -20,8 +20,9 @@ pub mod mod_b {
     pub use crate::*;
 
     /// This harness replaces `method_a` (always fails), by `method_b` (always succeeds).
-    #[kani::proof]
-    #[kani::stub(mod_a::mod_b::mod_a::method_a, mod_b::noop)]
+    #[cfg_attr(kani, kani::proof)]
+    #[cfg_attr(not(kani), test)]
+    #[cfg_attr(kani, kani::stub(mod_a::mod_b::mod_a::method_a, mod_b::noop))]
     pub fn check_stub() {
         method_a();
     }

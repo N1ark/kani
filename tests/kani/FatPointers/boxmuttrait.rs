@@ -14,7 +14,8 @@ use std::ptr::DynMetadata;
 
 include!("../Helpers/vtable_utils_ignore.rs");
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let mut log: Box<dyn Write + Send> = Box::new(sink());
     let dest: Box<dyn Write + Send> = Box::new(log.as_mut());

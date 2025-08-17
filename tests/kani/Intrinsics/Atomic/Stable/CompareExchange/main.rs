@@ -6,7 +6,8 @@
 
 use std::sync::atomic::{AtomicBool, Ordering};
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     // pub fn compare_exchange(
     //     &self,

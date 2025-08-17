@@ -29,7 +29,8 @@ extern "C" {
 /// Kani APIs cannot tell if that's safe to write to a foreign type.
 ///
 /// However, foreign APIs that have knowledge of the type can still safely set new values.
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn check_write_with_extern() {
     let mut var = 0usize;
     let ptr = &mut var as *mut _ as *mut __CPROVER_size_t;
@@ -42,8 +43,9 @@ pub fn check_write_with_extern() {
 ///
 /// However, foreign APIs that have knowledge of the type can still safely set new values, and
 /// any side effect will be taken into consideration in the verification.
-#[kani::proof]
-#[kani::should_panic]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::should_panic)]
 pub fn check_write_with_extern_side_effect() {
     let mut var = 0usize;
     let ptr = &mut var as *mut _ as *mut __CPROVER_size_t;

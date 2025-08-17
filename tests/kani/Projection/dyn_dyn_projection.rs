@@ -20,6 +20,7 @@ impl<T: ?Sized> Wrapper<T> for Concrete<'_, T> {
 }
 
 #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_val() {
     let val = 20;
     let inner: Concrete<u8> = Concrete { inner: &val };
@@ -30,6 +31,7 @@ fn check_val() {
 }
 
 #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_size() {
     let val = 10u8;
     let inner: Concrete<u8> = Concrete { inner: &val };

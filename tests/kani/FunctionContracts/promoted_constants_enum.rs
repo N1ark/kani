@@ -14,18 +14,19 @@ pub enum Foo {
     B,
 }
 
-#[kani::ensures(|result: &Foo| *result == Foo::A)]
+#[cfg_attr(kani, kani::ensures(|result: &Foo| *result == Foo::A))]
 pub fn foo_a() -> Foo {
     Foo::A
 }
 
-#[kani::proof_for_contract(foo_a)]
+#[cfg_attr(kani, kani::proof_for_contract(foo_a))]
 fn check() {
     let _ = foo_a();
 }
 
-#[kani::proof]
-#[kani::stub_verified(foo_a)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::stub_verified(foo_a))]
 fn check_stub() {
     let val = foo_a();
     assert!(val == Foo::A)

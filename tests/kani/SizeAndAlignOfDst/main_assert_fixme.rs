@@ -42,16 +42,18 @@ mod macos {
         }
     }
 
-    #[kani::proof]
-    #[kani::unwind(2)]
+    #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+    #[cfg_attr(kani, kani::unwind(2))]
     fn simplified() {
         let s: Arc<Mutex<dyn Subscriber>> = Arc::new(Mutex::new(DummySubscriber::new()));
         let data = s.lock().unwrap();
         assert!(data.get() == 0);
     }
 
-    #[kani::proof]
-    #[kani::unwind(1)]
+    #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+    #[cfg_attr(kani, kani::unwind(1))]
     fn original() {
         let s: Arc<Mutex<dyn Subscriber>> = Arc::new(Mutex::new(DummySubscriber::new()));
         let mut data = s.lock().unwrap();
@@ -64,7 +66,8 @@ mod macos {
 mod not_macos {
     /// Since this is a fixme test, it must also fail in other platforms.
     /// Remove this once we fix the issue above.
-    #[kani::proof]
+    #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
     fn fail() {
         assert!(false);
     }

@@ -3,7 +3,8 @@
 
 // This test checks that the print macros do not result in verification failure
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     println!("Hello, world!");
     let a = 5;

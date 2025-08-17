@@ -6,7 +6,8 @@
 
 use std::intrinsics::*;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let mut a: Box<u8> = Box::new(0);
     unsafe {

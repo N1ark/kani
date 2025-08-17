@@ -7,7 +7,8 @@ use std::intrinsics;
 
 // The code below attempts to leave type `&u32` uninitialized, causing the
 // intrinsic `assert_uninit_valid` to generate a panic during compilation.
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let _var: () = unsafe {
         intrinsics::assert_uninit_valid::<&u32>();

@@ -38,7 +38,8 @@ fn test_env() {
     assert!(r == 9);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     closure_with_empty_args();
     closure_with_1_arg();

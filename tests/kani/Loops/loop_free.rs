@@ -11,8 +11,9 @@ fn loop_free<T: Default>(b: bool, other: T) -> T {
 }
 
 /// Set the unwind to 1 so this test will fail instead of running forever.
-#[kani::proof]
-#[kani::unwind(1)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(1))]
 fn check_no_loop() {
     let b: bool = kani::any();
     let result = loop_free(b, 5);

@@ -22,8 +22,9 @@ struct Foo {
     pub _b: i8,
 }
 
-#[kani::proof]
-#[kani::unwind(2)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(2))]
 fn main() {
     let dyn_trait1: Box<dyn Send> = Box::new(Foo { _a: 1, _b: 2 });
     let dyn_trait2: Box<dyn Send> = Box::new(dyn_trait1);

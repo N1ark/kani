@@ -12,7 +12,8 @@ enum E {
     Bar,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let e = E::Foo { a: 32, b: 100 };
     match e {

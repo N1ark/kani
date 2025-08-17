@@ -7,7 +7,8 @@ fn invoke(input: usize, f: fn(usize) -> usize) -> usize {
     f(input)
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_closure_ptr() {
     let input = kani::any();
     let output = invoke(input, |x| x);

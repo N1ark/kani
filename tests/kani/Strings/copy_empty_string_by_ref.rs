@@ -7,7 +7,8 @@ fn take_string_ref(s: &str, l: usize) {
     assert!(s.len() == l)
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     take_string_ref(&"x".to_string(), 1);
     take_string_ref(&"".to_string(), 0);

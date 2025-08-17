@@ -28,8 +28,9 @@ fn doswitch_bytes() -> i32 {
     return 2;
 }
 
-#[kani::proof]
-#[kani::unwind(2)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(2))]
 fn main() {
     let v = doswitch_int();
     assert!(v == 1);
@@ -45,7 +46,8 @@ pub enum Reference {
     ByName { alias: String },
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_nontrivial_drop() {
     let result: Reference = Reference::ByName { alias: "foo".into() };
     drop(result)

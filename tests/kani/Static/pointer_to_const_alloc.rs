@@ -19,7 +19,8 @@
 pub static FOO: &[i32] = &[42];
 pub static BAR: &[i32] = &*FOO;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     assert_eq!(FOO.as_ptr(), BAR.as_ptr());
 }

@@ -11,7 +11,8 @@ fn call_boxed_closure(f: Box<dyn Fn() -> ()>) -> () {
     f()
 }
 
-// #[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let x = 1;
     let closure = move || {

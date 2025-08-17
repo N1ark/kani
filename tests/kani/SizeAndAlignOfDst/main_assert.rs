@@ -39,16 +39,18 @@ mod not_macos {
         }
     }
 
-    #[kani::proof]
-    #[kani::unwind(2)]
+    #[cfg_attr(kani, kani::proof)]
+    #[cfg_attr(not(kani), test)]
+    #[cfg_attr(kani, kani::unwind(2))]
     fn simplified() {
         let s: Arc<Mutex<dyn Subscriber>> = Arc::new(Mutex::new(DummySubscriber::new()));
         let data = s.lock().unwrap();
         assert!(data.get() == 0);
     }
 
-    #[kani::proof]
-    #[kani::unwind(1)]
+    #[cfg_attr(kani, kani::proof)]
+    #[cfg_attr(not(kani), test)]
+    #[cfg_attr(kani, kani::unwind(1))]
     fn original() {
         let s: Arc<Mutex<dyn Subscriber>> = Arc::new(Mutex::new(DummySubscriber::new()));
         let mut data = s.lock().unwrap();

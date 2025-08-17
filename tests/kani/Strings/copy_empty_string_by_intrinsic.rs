@@ -31,7 +31,8 @@ fn copy_string(s: &str, l: usize) {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     copy_string("x", 1);
     copy_string("", 0);

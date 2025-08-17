@@ -16,7 +16,8 @@ extern "C" {
     static an_uninitialized_variable: u32;
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_extern_static_isnt_deterministic() {
     // If this is zero-initialized, this assertion will pass, but this
     // test is labeled 'kani-verify-fail', and so the test would fail.

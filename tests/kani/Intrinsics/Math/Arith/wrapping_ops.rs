@@ -9,7 +9,8 @@
 #![feature(core_intrinsics)]
 use std::intrinsics::{wrapping_add, wrapping_mul, wrapping_sub};
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_wrapping_add() {
     // The compiler detects overflows at compile time if we use constants so we
     // declare a nondet. variable and assume the value to avoid annotations
@@ -19,7 +20,8 @@ fn test_wrapping_add() {
     assert!(wrapping_add(x, u32::MAX) == 199);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_wrapping_sub() {
     let x: u32 = kani::any();
     kani::assume(x == 100);
@@ -27,7 +29,8 @@ fn test_wrapping_sub() {
     assert_eq!(wrapping_sub(x, 100), 0);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_wrapping_mul() {
     let x: u8 = kani::any();
     kani::assume(x == 12);

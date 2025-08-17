@@ -16,7 +16,8 @@ fn foo(input: &Result<u32, Unit>) -> u32 {
     if let Ok(num) = input { *num } else { 3 }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let input: Result<u32, Unit> = kani::any();
     let x = foo(&input);

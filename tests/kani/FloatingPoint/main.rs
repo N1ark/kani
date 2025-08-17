@@ -26,7 +26,8 @@ macro_rules! test_floats {
     };
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     assert!(1.1 == 1.1 * 1.0);
     assert!(1.1 != 1.11 / 1.0);
@@ -46,7 +47,8 @@ fn make_float_array() -> f16x16 {
     f16x16([1.0; 16])
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn make_float_array_harness() {
     let _ = make_float_array();
 }

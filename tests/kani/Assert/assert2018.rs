@@ -7,7 +7,8 @@
 // This was previously failing:
 // https://github.com/model-checking/kani/issues/3717
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_assert_2018() {
     let s = String::new();
     // This is deprecated in Rust 2018 and is a hard error starting Rust 2021.

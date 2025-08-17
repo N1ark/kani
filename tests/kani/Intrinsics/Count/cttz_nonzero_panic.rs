@@ -15,7 +15,8 @@ macro_rules! test_cttz_nonzero {
     };
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     test_cttz_nonzero!(u8);
     test_cttz_nonzero!(u16);

@@ -9,7 +9,8 @@ struct Foo {
     x: i32,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let foo = Foo { x: 5 };
     // calling `println` with `foo` should not move it

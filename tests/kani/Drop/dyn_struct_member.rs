@@ -30,7 +30,8 @@ impl Drop for DummyImpl {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_drop_dyn() {
     let original = Rc::new(Wrapper { w_id: 0, inner: DummyImpl { id: 1 } });
     let _wrapper =

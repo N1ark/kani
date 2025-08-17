@@ -15,6 +15,7 @@ struct A {
 impl T for A {}
 
 #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_align_simple() {
     let a = A { id: 0 };
     let t: &dyn T = &a;
@@ -41,6 +42,7 @@ impl<T: ?Sized> Wrapper<T> for Concrete<T> {
 }
 
 #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_align_inner() {
     let val = 10u8;
     let conc_wrapper: Concrete<u8> = Concrete { id: 0, inner: val };

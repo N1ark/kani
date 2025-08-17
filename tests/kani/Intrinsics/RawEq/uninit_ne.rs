@@ -8,7 +8,8 @@
 use std::intrinsics::raw_eq;
 use std::mem::{MaybeUninit, zeroed};
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let zeroed_arr: [u8; 8] = unsafe { zeroed() };
     let uninit_arr: [u8; 8] = unsafe { MaybeUninit::uninit().assume_init() };

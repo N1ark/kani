@@ -19,8 +19,9 @@ impl Drop for Concrete {
     }
 }
 
-#[kani::proof]
-#[kani::unwind(2)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(2))]
 fn main() {
     // Check normal box
     {

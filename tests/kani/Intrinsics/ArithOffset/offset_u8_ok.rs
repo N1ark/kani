@@ -5,7 +5,8 @@
 #![feature(core_intrinsics)]
 use std::intrinsics::arith_offset;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_arith_offset() {
     let s: &str = "123";
     let ptr: *const u8 = s.as_ptr();

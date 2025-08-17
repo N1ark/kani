@@ -23,7 +23,8 @@ impl Trait for Concrete {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_slice_boxed() {
     let boxed_t: &[Box<dyn Trait>] = &[Box::new(Concrete { id: 0 }), Box::new(Concrete { id: 1 })];
 
@@ -31,8 +32,9 @@ fn check_slice_boxed() {
     assert_eq!(boxed_t[1].id(), 1);
 }
 
-#[kani::proof]
-#[kani::unwind(3)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(3))]
 fn check_slice_boxed_iterator() {
     let boxed_t: &[Box<dyn Trait>] = &[Box::new(Concrete { id: 0 }), Box::new(Concrete { id: 1 })];
 

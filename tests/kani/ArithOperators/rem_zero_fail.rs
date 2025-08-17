@@ -5,7 +5,8 @@
 // Check that remainder triggers overflow checks.
 // Covers the case where `b == 0`.
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let a: i8 = kani::any();
     let b: i8 = kani::any();

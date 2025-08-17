@@ -8,7 +8,8 @@
 #![feature(strict_provenance_atomic_ptr, strict_provenance)]
 use std::sync::atomic::{AtomicPtr, Ordering};
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_fetch_byte_add() {
     let atom = AtomicPtr::<i64>::new(core::ptr::null_mut());
     assert_eq!(atom.fetch_byte_add(1, Ordering::Relaxed).addr(), 0);
@@ -16,14 +17,16 @@ fn check_fetch_byte_add() {
     assert_eq!(atom.load(Ordering::Relaxed).addr(), 1);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_fetch_byte_sub() {
     let atom = AtomicPtr::<i64>::new(core::ptr::without_provenance_mut(1));
     assert_eq!(atom.fetch_byte_sub(1, Ordering::Relaxed).addr(), 1);
     assert_eq!(atom.load(Ordering::Relaxed).addr(), 0);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_fetch_and() {
     let pointer = &mut 3i64 as *mut i64;
     // A tagged pointer
@@ -34,7 +37,8 @@ fn check_fetch_and() {
     assert_eq!(untagged, pointer);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_fetch_or() {
     let pointer = &mut 3i64 as *mut i64;
 
@@ -47,7 +51,8 @@ fn check_fetch_or() {
     assert_eq!(tagged.map_addr(|p| p & !1), pointer);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_fetch_update() {
     let ptr: *mut _ = &mut 5;
     let some_ptr = AtomicPtr::new(ptr);
@@ -61,7 +66,8 @@ fn check_fetch_update() {
     assert_eq!(some_ptr.load(Ordering::SeqCst), new);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_fetch_xor() {
     let pointer = &mut 3i64 as *mut i64;
     let atom = AtomicPtr::<i64>::new(pointer);

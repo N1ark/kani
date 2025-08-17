@@ -5,7 +5,8 @@
 
 #![feature(core_intrinsics)]
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let x: f32 = kani::any();
     let y: f32 = kani::any();

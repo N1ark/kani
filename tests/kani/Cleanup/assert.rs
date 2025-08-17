@@ -21,7 +21,8 @@ impl Drop for S {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let lhs = S { a: 42, b: 42 };
     let rhs = S { a: 0, b: 0 };

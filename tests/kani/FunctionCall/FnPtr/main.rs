@@ -10,7 +10,8 @@ pub struct LocalKey {
 unsafe fn foo(x: i32) -> i32 {
     x + 1
 }
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let l = LocalKey { inner: foo };
     unsafe { assert!((l.inner)(3) == 4) }

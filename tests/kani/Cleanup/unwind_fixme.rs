@@ -18,7 +18,8 @@ impl Drop for DummyResource {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn create(empty: bool) -> DummyResource {
     let mut dummy = DummyResource { data: None };
     if empty {

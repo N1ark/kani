@@ -89,7 +89,8 @@ fn overlap_x_and_y() -> impl Coroutine<Yield = (), Return = ()> {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     assert_eq!(1025, std::mem::size_of_val(&move_before_yield()));
     // With panic=unwind, the following assertion fails because the size increases to 1026.

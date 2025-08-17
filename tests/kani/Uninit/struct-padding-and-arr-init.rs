@@ -7,7 +7,8 @@ use std::ptr::addr_of_mut;
 #[repr(C)]
 struct S(u32, u8);
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn struct_padding_and_arr_init() {
     unsafe {
         let mut s = S(0, 0);

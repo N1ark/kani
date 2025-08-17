@@ -5,7 +5,8 @@
 // passed as the argument.
 #![feature(core_intrinsics)]
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let vec = vec![1, 2];
     let vec_ptr = vec.as_ptr();

@@ -12,7 +12,8 @@ enum Foo {
     F = 256,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_negative_discriminant() {
     let a = Some(Foo::A);
     let b = Some(Foo::B);

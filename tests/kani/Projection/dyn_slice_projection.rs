@@ -20,6 +20,7 @@ impl<T: ?Sized> Wrapper<T> for Concrete<'_, T> {
 }
 
 #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_size() {
     let original: Concrete<[u8]> = Concrete { inner: &[1u8, 2u8] };
     let wrapper = &original as &dyn Wrapper<[u8]>;
@@ -31,6 +32,7 @@ fn check_size() {
 }
 
 #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_iterator() {
     let original: Concrete<[u8]> = Concrete { inner: &[1u8, 2u8] };
     let wrapper = &original as &dyn Wrapper<[u8]>;

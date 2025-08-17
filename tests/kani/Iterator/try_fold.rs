@@ -1,8 +1,9 @@
 // Copyright Kani Contributors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-#[kani::proof]
-#[kani::unwind(3)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(3))]
 fn main() {
     let arr = [(1, 2), (2, 2)];
     let result = arr.iter().try_fold((), |acc, &i| Some(()));

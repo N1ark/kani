@@ -14,21 +14,24 @@ use std::{
 
 fn main() {}
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 async fn test_async_proof_harness() {
     let async_block_result = async { 42 }.await;
     let async_fn_result = async_fn().await;
     assert_eq!(async_block_result, async_fn_result);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub async fn test_async_proof_harness_pub() {
     let async_block_result = async { 42 }.await;
     let async_fn_result = async_fn().await;
     assert_eq!(async_block_result, async_fn_result);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_async_await() {
     // Test using the `block_on` implementation in Kani's library
     kani::block_on(async {
@@ -38,8 +41,9 @@ fn test_async_await() {
     })
 }
 
-#[kani::proof]
-#[kani::unwind(2)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(2))]
 fn test_async_await_manually() {
     // Test using the manual `block_on` implementation
     block_on(async {

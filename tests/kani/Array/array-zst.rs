@@ -6,7 +6,8 @@ pub fn first<T>(slice: &[T]) -> Option<&T> {
     slice.first()
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn check_zero_elems() {
     let empty_array: [u8; 0] = kani::any();
     assert_eq!(empty_array.len(), 0);
@@ -24,8 +25,9 @@ pub fn check_zero_elems() {
     }
 }
 
-#[kani::proof]
-#[kani::unwind(11)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(11))]
 pub fn check_zst_elem() {
     let zst_array: [(); 10] = kani::any();
     assert_eq!(zst_array.len(), 10);
@@ -43,7 +45,8 @@ pub fn check_zst_elem() {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn check_zst_enum() {
     #[derive(kani::Arbitrary)]
     enum ZeroSz {

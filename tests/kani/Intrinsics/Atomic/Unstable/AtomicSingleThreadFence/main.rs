@@ -7,7 +7,8 @@
 #![feature(core_intrinsics)]
 use std::intrinsics::{AtomicOrdering, atomic_singlethreadfence};
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     unsafe {
         atomic_singlethreadfence::<{ AtomicOrdering::SeqCst }>();

@@ -8,7 +8,8 @@
 //
 // Handled as a special case of transmute (non returning intrinsic) that
 // compiles but crashes at runtime, similar to calling `std::intrinsic::abort`
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     unsafe { std::mem::transmute::<(), !>(()) };
 }

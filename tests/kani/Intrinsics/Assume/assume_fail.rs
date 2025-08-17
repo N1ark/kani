@@ -5,7 +5,8 @@
 // Check that `assume` fails if the condition is false (undefined behavior)
 #![feature(core_intrinsics)]
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     unsafe { core::intrinsics::assume(false) };
 }

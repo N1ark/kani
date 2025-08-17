@@ -33,7 +33,8 @@ impl Drop for Concrete2 {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     {
         let x: Box<dyn T>;

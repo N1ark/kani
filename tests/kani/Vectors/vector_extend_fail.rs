@@ -5,7 +5,8 @@
 
 // kani-verify-fail
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let mut v: Vec<u32> = Vec::new();
     v.extend(42..=42);

@@ -10,7 +10,8 @@ struct AscII {
     inner: u8,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_from_raw() {
     let ascii: [AscII; 5] = kani::any();
     let slice_ptr: *const [AscII] = &ascii;

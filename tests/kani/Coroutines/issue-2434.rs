@@ -37,7 +37,8 @@ impl Sender {
     pub async fn send(&self) {}
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check() {
     let mut scheduler = Scheduler { task: None };
     spawnable_block_on(&mut scheduler, async {

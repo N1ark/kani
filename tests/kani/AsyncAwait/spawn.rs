@@ -11,8 +11,8 @@ use std::sync::{
     atomic::{AtomicI64, Ordering},
 };
 
-#[kani::proof(schedule = kani::RoundRobin::default())]
-#[kani::unwind(4)]
+#[cfg_attr(kani, kani::proof(schedule = kani::RoundRobin::default()))]
+#[cfg_attr(kani, kani::unwind(4))]
 async fn round_robin_schedule() {
     let x = Arc::new(AtomicI64::new(0)); // Surprisingly, Arc verified faster than Rc
     let x2 = x.clone();
@@ -26,8 +26,9 @@ async fn round_robin_schedule() {
     assert_eq!(x.load(Ordering::Relaxed), 2);
 }
 
-#[kani::proof]
-#[kani::unwind(4)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(4))]
 fn round_robin_schedule_manual() {
     let x = Arc::new(AtomicI64::new(0)); // Surprisingly, Arc verified faster than Rc
     let x2 = x.clone();

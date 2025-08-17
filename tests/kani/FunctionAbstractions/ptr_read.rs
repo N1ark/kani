@@ -3,7 +3,8 @@
 
 use std::ptr::read;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let var = 1;
     unsafe {

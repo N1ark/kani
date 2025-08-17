@@ -13,9 +13,10 @@ pub fn stub_mut_len_is_0<T>(_: *mut [T]) -> usize {
     0
 }
 
-#[kani::proof]
-#[kani::stub(<*const [u8]>::len, stub_len_is_10)]
-#[kani::stub(<*mut [u8]>::len, stub_mut_len_is_0)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::stub(<*const [u8]>::len, stub_len_is_10))]
+#[cfg_attr(kani, kani::stub(<*mut [u8]>::len, stub_mut_len_is_0))]
 pub fn check_stub_len_raw_ptr() {
     let mut input: [u8; 5] = kani::any();
     let mut_ptr = &mut input as *mut [u8];
@@ -29,8 +30,9 @@ pub fn stub_is_always_null<T>(_: *const T) -> bool {
 }
 
 // Fix-me: Option doesn't seem to work without the fully qualified path.
-#[kani::proof]
-#[kani::stub(<*const std::option::Option>::is_null, stub_is_always_null)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::stub(<*const std::option::Option>::is_null, stub_is_always_null))]
 pub fn check_stub_is_null() {
     let input: Option<char> = kani::any();
     let ptr = &input as *const Option<char>;

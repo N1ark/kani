@@ -6,7 +6,8 @@ fn assert_bigger(a: u128, b: u128) {
     assert!(a > b);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     assert_bigger(u128::MAX, 12);
 }

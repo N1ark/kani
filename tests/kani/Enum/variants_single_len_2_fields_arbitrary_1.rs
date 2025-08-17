@@ -8,7 +8,8 @@ pub enum MyInfallible {}
 fn foo() -> Result<i64, MyInfallible> {
     Ok(1)
 }
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let v = foo().unwrap();
     assert!(v == 1);

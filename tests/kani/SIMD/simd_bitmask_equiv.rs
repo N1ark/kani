@@ -66,8 +66,9 @@ where
     }
 }
 
-#[kani::proof]
-#[kani::solver(kissat)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::solver(kissat))]
 fn check_equiv() {
     let mask = kani::any::<CustomMask<8>>();
     unsafe {

@@ -37,14 +37,16 @@ impl U8Wrapper for MyU8 {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn check_source_type() {
     let obj1 = Some(MyU8 { inner: 10 });
     let obj2: Option<<MyU8 as Convert>::Source> = obj1;
     assert_eq!(obj1.unwrap(), obj2.unwrap());
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn check_fn_convert() {
     let val: u8 = kani::any();
     let obj1 = Some(MyU8 { inner: val });
@@ -52,7 +54,8 @@ pub fn check_fn_convert() {
     assert_eq!(obj1.unwrap().convert(), val);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn check_dyn_convert() {
     let val: u8 = kani::any();
     let obj1 = MyU8 { inner: val };

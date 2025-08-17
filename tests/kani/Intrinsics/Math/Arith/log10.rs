@@ -1,7 +1,8 @@
 // Copyright Kani Contributors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn verify_log10_32() {
     let ten = 10.0f32;
 
@@ -12,7 +13,8 @@ fn verify_log10_32() {
     assert!(abs_difference <= 0.03);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn verify_log10_64() {
     let hundred = 100.0_f64;
 

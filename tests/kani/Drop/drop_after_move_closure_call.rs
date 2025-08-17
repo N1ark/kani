@@ -20,7 +20,8 @@ impl Drop for DropIncrementCELLByOne {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     {
         let object_to_drop = DropIncrementCELLByOne {};

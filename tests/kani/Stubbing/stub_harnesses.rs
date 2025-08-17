@@ -14,20 +14,23 @@ fn bar(b: bool) {
 }
 
 /// Harness should succeed if stub has been applied and fail otherwise.
-#[kani::proof]
-#[kani::stub(foo, bar)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::stub(foo, bar))]
 fn check_stub_foo() {
     foo(false)
 }
 
 /// Harness should succeed if stub has been applied and fail otherwise.
-#[kani::proof]
-#[kani::stub(bar, foo)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::stub(bar, foo))]
 fn check_stub_bar() {
     bar(true)
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_no_stub() {
     foo(true);
     bar(false);

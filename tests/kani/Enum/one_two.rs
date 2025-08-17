@@ -10,7 +10,8 @@ enum Enum {
     Two(u32, u32),
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check() {
     // This will have one operand.
     let _var = Niche_Enum::One(false);

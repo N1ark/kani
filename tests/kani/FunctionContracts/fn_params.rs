@@ -17,10 +17,10 @@ struct MyStruct {
 }
 
 /// Add contracts to ensure that all parameters are representing the same pair (char, u32).
-#[kani::requires(val.u == second)]
-#[kani::requires(val.u == tup_u)]
-#[kani::requires(Ok(val.c) == char::try_from(first))]
-#[kani::requires(val.c == tup_c)]
+#[cfg_attr(kani, kani::requires(val.u == second))]
+#[cfg_attr(kani, kani::requires(val.u == tup_u))]
+#[cfg_attr(kani, kani::requires(Ok(val.c) == char::try_from(first)))]
+#[cfg_attr(kani, kani::requires(val.c == tup_c))]
 pub fn odd_parameters_eq(
     [first, second]: [u32; 2],
     (tup_c, tup_u): (char, u32),
@@ -35,10 +35,10 @@ pub fn odd_parameters_eq(
 }
 
 /// Similar to the function above, but with one requirement missing.
-#[kani::requires(val.u == second)]
-#[kani::requires(val.u == tup_u)]
-#[kani::requires(Ok(val.c) == char::try_from(first))]
-// MISSING: #[kani::requires(val.c == tup_c)]
+#[cfg_attr(kani, kani::requires(val.u == second))]
+#[cfg_attr(kani, kani::requires(val.u == tup_u))]
+#[cfg_attr(kani, kani::requires(Ok(val.c) == char::try_from(first)))]
+// MISSING: #[cfg_attr(kani, kani::requires(val.c == tup_c))]
 pub fn odd_parameters_eq_wrong(
     [first, second]: [u32; 2],
     (tup_c, tup_u): (char, u32),
@@ -56,13 +56,13 @@ mod verify {
     use super::*;
     use kani::Arbitrary;
 
-    #[kani::proof_for_contract(odd_parameters_eq)]
+    #[cfg_attr(kani, kani::proof_for_contract(odd_parameters_eq))]
     fn check_params() {
         odd_parameters_eq(kani::any(), kani::any(), kani::any())
     }
 
-    #[kani::should_panic]
-    #[kani::proof_for_contract(odd_parameters_eq_wrong)]
+    #[cfg_attr(kani, kani::should_panic)]
+    #[cfg_attr(kani, kani::proof_for_contract(odd_parameters_eq_wrong))]
     fn check_params_wrong() {
         odd_parameters_eq_wrong(kani::any(), kani::any(), kani::any())
     }

@@ -30,10 +30,11 @@ pub fn stub_foo() -> bool {
     true
 }
 
-#[kani::proof]
-#[kani::stub(<Bar as Foo>::foo, stub_foo)]
-#[kani::stub(<(i32, i32) as Foo>::foo, stub_foo)]
-#[kani::stub(<[u32] as Foo>::foo, stub_foo)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::stub(<Bar as Foo>::foo, stub_foo))]
+#[cfg_attr(kani, kani::stub(<(i32, i32) as Foo>::foo, stub_foo))]
+#[cfg_attr(kani, kani::stub(<[u32] as Foo>::foo, stub_foo))]
 fn stub_trait_methods() {}
 
 // https://github.com/model-checking/kani/issues/2524
@@ -55,8 +56,9 @@ mod issue_2524 {
         2
     }
 
-    #[kani::proof]
-    #[kani::stub(Bar::foo, foo_stub)]
+    #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+    #[cfg_attr(kani, kani::stub(Bar::foo, foo_stub))]
     fn my_proof() {
         assert_eq!(Bar::foo(), 2)
     }

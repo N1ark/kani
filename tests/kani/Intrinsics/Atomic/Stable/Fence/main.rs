@@ -6,7 +6,8 @@
 
 use std::sync::atomic::{Ordering, fence};
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     // pub fn fence(order: Ordering)
     // An atomic fence.

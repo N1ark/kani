@@ -34,7 +34,8 @@ impl AgeWidget for Form {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn main() {
     let form = Form { username: "rustacean".to_owned(), age: 28 };
 

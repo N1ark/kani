@@ -9,8 +9,9 @@ pub const fn size_of_val<T: ?Sized>(val: &T) -> usize {
     unsafe { std::intrinsics::size_of_val(val) }
 }
 
-#[kani::proof]
-#[kani::unwind(6)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(6))]
 fn main() {
     let name: &str = "hello";
     let len = size_of_val(name);

@@ -35,7 +35,8 @@ fn test2() -> bool {
     false
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     t1();
     t2();

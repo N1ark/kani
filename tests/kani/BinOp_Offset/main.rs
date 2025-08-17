@@ -22,7 +22,8 @@ pub fn test_offset_str() {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     test_offset_array();
     test_offset_str()

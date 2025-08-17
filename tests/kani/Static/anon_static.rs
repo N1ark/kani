@@ -16,7 +16,8 @@ mod example_1 {
     // }
     static mut FOO: &mut u32 = &mut 42;
 
-    #[kani::proof]
+    #[cfg_attr(kani, kani::proof)]
+    #[cfg_attr(not(kani), test)]
     fn main() {
         unsafe {
             *FOO = 43;
@@ -42,7 +43,8 @@ mod example_2 {
     static mut FOO: &mut i32 = &mut 12;
     static mut BAR: *mut i32 = unsafe { FOO as *mut _ };
 
-    #[kani::proof]
+    #[cfg_attr(kani, kani::proof)]
+    #[cfg_attr(not(kani), test)]
     fn main() {
         unsafe {
             // check that we see the same initial value from all aliases

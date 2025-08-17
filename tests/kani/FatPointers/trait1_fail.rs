@@ -25,7 +25,8 @@ impl Subscriber for DummySubscriber {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let _d = DummySubscriber::new();
     let _s = &_d as &dyn Subscriber;

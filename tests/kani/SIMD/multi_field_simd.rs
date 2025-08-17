@@ -30,14 +30,16 @@ impl std::cmp::PartialOrd for i64x2 {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_diff() {
     let x = i64x2([1, 2]);
     let y = i64x2([3, 4]);
     assert!(x.into_array() != y.into_array());
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_ge() {
     let x: i64x2 = kani::any();
     kani::assume(x.into_array()[0] > 0);

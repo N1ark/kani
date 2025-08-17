@@ -25,8 +25,9 @@ pub struct ArgumentV1 {
     formatter: fn(&u8, &Formatter) -> (),
 }
 
-#[kani::proof]
-#[kani::unwind(2)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(2))]
 fn dyn_trait_with_encode_utf8() {
     let f = Foo {};
     let a = [ArgumentV1 { formatter: nn }];

@@ -18,7 +18,8 @@ fn ret_unit() {
     ()
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     assert!(() == ());
     let u = ret_unit();

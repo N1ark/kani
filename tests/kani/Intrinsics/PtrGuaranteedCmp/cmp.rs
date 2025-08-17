@@ -14,7 +14,8 @@ fn ptr_ne(ptr1: *const u8, ptr2: *const u8) -> bool {
     ptr_guaranteed_cmp(ptr1, ptr2) == 0
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_ptr_guaranteed_cmp() {
     let v1: u8 = kani::any();
     let v2: u8 = kani::any();

@@ -5,7 +5,8 @@
 #![feature(core_intrinsics)]
 use std::intrinsics::raw_eq;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let raw_eq_i32_true: bool = unsafe { raw_eq(&42_i32, &42) };
     assert!(raw_eq_i32_true);

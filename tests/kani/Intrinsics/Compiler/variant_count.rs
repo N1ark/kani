@@ -13,7 +13,8 @@ enum MyError {
     Error3,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     const VOID_COUNT: usize = mem::variant_count::<Void>();
     const ERROR_COUNT: usize = mem::variant_count::<MyError>();

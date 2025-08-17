@@ -21,37 +21,44 @@ macro_rules! verify_no_overflow {
     }};
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_unchecked_add() {
     verify_no_overflow!(u8, checked_add, unchecked_add);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_unchecked_sub() {
     verify_no_overflow!(u8, checked_sub, unchecked_sub);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_unchecked_mul() {
     verify_no_overflow!(u8, checked_mul, unchecked_mul);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_unchecked_div() {
     verify_no_overflow!(u8, checked_div, unchecked_div);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_unchecked_rem() {
     verify_no_overflow!(u8, checked_rem, unchecked_rem);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_unchecked_shl() {
     verify_no_overflow!(u32, checked_shl, unchecked_shl);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_unchecked_shr() {
     verify_no_overflow!(u32, checked_shr, unchecked_shr);
 }

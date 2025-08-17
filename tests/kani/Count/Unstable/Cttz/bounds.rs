@@ -6,7 +6,8 @@
 #![feature(core_intrinsics)]
 use std::intrinsics::cttz_nonzero;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let uv8: u8 = 0;
     let uv16: u16 = 0;

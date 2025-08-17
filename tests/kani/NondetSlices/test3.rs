@@ -5,7 +5,8 @@
 
 // kani-flags: --default-unwind 6
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_any_slice_i32() {
     let a: [i32; 5] = kani::any();
     let s = kani::slice::any_slice_of_array(&a);

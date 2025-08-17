@@ -96,7 +96,8 @@ fn test4() {
     assert!(encode_utf8_raw(code, dst) == 0);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     test1();
     test2();

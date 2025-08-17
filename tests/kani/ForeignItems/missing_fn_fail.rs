@@ -10,7 +10,8 @@ extern "C" {
     fn missing_int_converter(i: u32) -> u32;
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     unsafe {
         let x = missing_int_converter(3);

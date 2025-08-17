@@ -28,7 +28,8 @@ fn test2() {
     assert!(inner.inner[1] == 'i' as u8);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     test1();
     test2();

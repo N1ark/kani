@@ -14,7 +14,8 @@ const CONST: usize = {
     idx
 };
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_eval() {
     assert_eq!(CONST, LENGTH);
 }

@@ -23,7 +23,8 @@ impl MyStr {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn sanity_check_my_str() {
     let mut buf = String::from("123456");
     let my_str = MyStr::new(&mut buf);
@@ -34,7 +35,8 @@ fn sanity_check_my_str() {
     assert_eq!(my_str.data.chars().nth(3), Some('6'));
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_slice_my_str() {
     let mut buf_0 = String::from("000");
     let mut buf_1 = String::from("001");
@@ -48,7 +50,8 @@ fn check_slice_my_str() {
     assert_eq!(my_slice[1].data.chars().nth(0), Some('1'));
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_size_of_val() {
     let mut buf_0 = String::from("000");
     let mut buf_1 = String::from("001");

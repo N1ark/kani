@@ -9,7 +9,8 @@ const fn my_const_fn(x: i32) -> i32 {
     if x > 0 { x - 1 } else { panic!("x is negative") }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn check_something() {
     const _X: i32 = my_const_fn(-3);
 }

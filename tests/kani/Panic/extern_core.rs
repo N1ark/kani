@@ -7,7 +7,8 @@
 
 extern crate std as core;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let x = if kani::any() { 11 } else { 33 };
     if x < 10 {

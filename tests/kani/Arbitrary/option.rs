@@ -17,7 +17,8 @@ impl kani::Arbitrary for MyType {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let option: Option<MyType> = kani::any();
     match option {

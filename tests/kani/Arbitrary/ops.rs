@@ -7,7 +7,8 @@ extern crate kani;
 
 use std::ops::{Bound, Range, RangeFrom, RangeInclusive, RangeTo, RangeToInclusive};
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn bound() {
     let elem: Wrapper<Bound<u8>> = kani::any();
     match elem.0 {
@@ -21,33 +22,38 @@ fn bound() {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn range() {
     let elem: Wrapper<Range<u8>> = kani::any();
     assert!(elem.0.start < 100);
     assert!(elem.0.end < 100);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn range_from() {
     let elem: Wrapper<RangeFrom<u8>> = kani::any();
     assert!(elem.0.start < 100);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn range_inclusive() {
     let elem: Wrapper<RangeInclusive<u8>> = kani::any();
     assert!(*elem.0.start() < 100);
     assert!(*elem.0.end() < 100);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn range_to() {
     let elem: Wrapper<RangeTo<u8>> = kani::any();
     assert!(elem.0.end < 100);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn range_to_inclusive() {
     let elem: Wrapper<RangeToInclusive<u8>> = kani::any();
     assert!(elem.0.end < 100);

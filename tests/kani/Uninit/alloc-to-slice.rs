@@ -4,7 +4,8 @@
 
 use std::alloc::{Layout, alloc};
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn alloc_to_slice() {
     let layout = Layout::from_size_align(32, 8).unwrap();
     unsafe {

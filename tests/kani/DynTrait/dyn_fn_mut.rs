@@ -12,7 +12,8 @@ pub fn mut_i32_ptr(x: &mut i32) {
     *x = *x + 1;
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let mut x = 1;
     takes_dyn_fun(Box::new(&mut_i32_ptr), &mut x);

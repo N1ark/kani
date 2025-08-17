@@ -32,8 +32,9 @@ where
     }
 }
 
-#[kani::proof]
-#[kani::unwind(16)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(16))]
 fn main() {
     finish(
         1,

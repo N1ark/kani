@@ -3,7 +3,8 @@
 
 // Checks that the remainder operator works with floating point values (see issue #2669)
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn rem_float() {
     let dividend = 0.5 * f32::from(kani::any::<i8>());
     let divisor = 0.5 * f32::from(kani::any::<i8>());

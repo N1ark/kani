@@ -4,7 +4,8 @@
 
 pub static DAYS_OF_WEEK: [char; 7] = ['s', 'm', 't', 'w', 't', 'f', 's'];
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn harness() {
     let day: usize = kani::any();
     kani::assume(day < DAYS_OF_WEEK.len());

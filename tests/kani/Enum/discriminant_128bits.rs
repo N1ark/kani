@@ -10,7 +10,8 @@ fn create() -> Option<NonZeroU128> {
     unsafe { Some(NonZeroU128::new_unchecked(120u128.into())) }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_option_128bits() {
     let opt = create();
     assert!(opt.is_some());

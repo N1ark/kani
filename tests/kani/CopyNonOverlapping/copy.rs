@@ -22,7 +22,8 @@ fn copy_from_slice(src: &[u8], dst: &mut [u8]) {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn proof_harness() {
     let mut data = Data { t: Type::Apple, array: [0; 8] };
     let coin = kani::any();

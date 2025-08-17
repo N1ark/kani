@@ -8,8 +8,9 @@ pub struct GuestRegionMmap {
     guest_base: GuestAddress,
 }
 
-#[kani::proof]
-#[kani::unwind(3)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(3))]
 fn main() {
     let r = GuestRegionMmap { guest_base: GuestAddress(0) };
     let mut regions: Vec<GuestRegionMmap> = vec![];

@@ -14,7 +14,8 @@ pub fn f(a: u64) -> u64 {
 mod verification {
     use super::*;
 
-    #[kani::proof]
+    #[cfg_attr(kani, kani::proof)]
+    #[cfg_attr(not(kani), test)]
     fn verify_f() {
         const LIMIT: u64 = 10;
         let x: u64 = kani::any();

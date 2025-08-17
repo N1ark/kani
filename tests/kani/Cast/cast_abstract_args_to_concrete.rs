@@ -19,7 +19,8 @@ extern crate libc;
 
 use std::mem;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let _x32 = 1.0f32.powi(2);
     let _x64 = 1.0f64.powi(2);

@@ -10,8 +10,9 @@ pub fn stub_is_ascii_true(_: &char) -> bool {
 }
 
 /// Check stubbing by directly calling `str::is_ascii`
-#[kani::proof]
-#[kani::stub(char::is_ascii, stub_is_ascii_true)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::stub(char::is_ascii, stub_is_ascii_true))]
 pub fn check_stub_is_ascii() {
     let input: char = kani::any();
     assert!(input.is_ascii());

@@ -7,7 +7,8 @@
 
 extern "rust-call" fn foo<T: std::marker::Tuple>(_: T) {}
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     foo(());
 }

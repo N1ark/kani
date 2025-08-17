@@ -6,7 +6,8 @@
 
 use std::simd::{mask32x4, u32x4, u64x16};
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_sum_any() {
     let a = u64x16::splat(0);
     let b = u64x16::from_array(kani::any());
@@ -14,7 +15,8 @@ fn check_sum_any() {
     assert_eq!((a + b).as_array(), b.as_array());
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_mask() {
     // From array doesn't work either. Manually build [false, true, false, true]
     let mut mask = mask32x4::splat(false);
@@ -24,7 +26,8 @@ fn check_mask() {
     assert_eq!(bitmask, 0b1010);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_resize() {
     let x = u32x4::from_array([0, 1, 2, 3]);
     assert_eq!(x.resize::<8>(9).to_array(), [0, 1, 2, 3, 9, 9, 9, 9]);

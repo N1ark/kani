@@ -5,7 +5,8 @@
 // Check that division triggers overflow checks.
 // Covers the case where `a == T::MIN && b == -1`.
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let a: i8 = i8::MIN;
     let b: i8 = kani::any();

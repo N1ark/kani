@@ -5,7 +5,8 @@
 #![feature(core_intrinsics)]
 use std::intrinsics::r#try;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     unsafe {
         // Rust will make a best-effort to swallow the panic, and then execute the cleanup function.

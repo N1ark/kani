@@ -82,7 +82,8 @@ fn overlap_x_and_y() -> impl Coroutine<Yield = (), Return = ()> {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let mut coroutine = move_before_yield();
     assert_eq!(

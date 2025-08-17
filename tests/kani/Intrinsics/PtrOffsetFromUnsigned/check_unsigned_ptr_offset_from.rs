@@ -5,7 +5,8 @@
 #![feature(core_intrinsics)]
 use std::intrinsics::ptr_offset_from_unsigned;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_distance_i32() {
     let a = [0; 5];
     let ptr0: *const i32 = &a[0];
@@ -18,7 +19,8 @@ fn check_distance_i32() {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_distance_i64() {
     let a = [0i64; 5];
     let ptr0: *const i64 = &a[0];

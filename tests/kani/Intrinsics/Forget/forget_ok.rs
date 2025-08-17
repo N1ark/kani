@@ -8,7 +8,8 @@
 // https://doc.rust-lang.org/std/mem/fn.forget.html#relationship-with-manuallydrop
 #![feature(core_intrinsics)]
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let mut v = vec![65, 122];
     // Build a `String` using the contents of `v`

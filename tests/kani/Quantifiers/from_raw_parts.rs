@@ -4,7 +4,8 @@
 
 use std::mem;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let original_v = vec![kani::any::<u32>(); 3];
     let v = original_v.clone();

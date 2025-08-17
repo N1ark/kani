@@ -9,7 +9,8 @@ struct Pair {
     snd: u16,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let arr = [0; 4];
     let pair = unsafe { std::mem::transmute::<[u8; 4], Pair>(arr) };

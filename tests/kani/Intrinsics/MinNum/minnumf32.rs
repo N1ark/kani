@@ -7,7 +7,8 @@
 //  * If both arguments are NaN, NaN is returned.
 #![feature(core_intrinsics)]
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_general() {
     let x: f32 = kani::any();
     let y: f32 = kani::any();
@@ -20,7 +21,8 @@ fn test_general() {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_one_nan() {
     let x: f32 = kani::any();
     let y: f32 = kani::any();
@@ -33,7 +35,8 @@ fn test_one_nan() {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_both_nan() {
     let x: f32 = kani::any();
     let y: f32 = kani::any();

@@ -30,7 +30,8 @@ where
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_u8() {
     let (true_lane, false_lane) = (-1, 0);
 
@@ -44,7 +45,8 @@ fn check_u8() {
     assert_eq!(mask, 0b1111111111111111111111111);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_unsigned_bitmask() {
     let mask = kani::any::<CustomMask<8>>();
     let bitmask = unsafe { simd_bitmask::<_, u8>(mask) };

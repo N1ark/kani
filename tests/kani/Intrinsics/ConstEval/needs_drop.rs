@@ -15,7 +15,8 @@ impl<T> Foo<T> {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     // Integers don't need to be dropped
     let int_foo = Foo::<i32> { _foo: 0 };

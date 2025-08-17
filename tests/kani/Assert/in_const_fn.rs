@@ -7,7 +7,8 @@ const fn const_add(x: i32, y: i32) {
     assert!(x + y == x);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check() {
     let x = kani::any();
     let y = 0;

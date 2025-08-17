@@ -43,27 +43,32 @@ macro_rules! test_bswap_intrinsic {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_bswap_u8() {
     test_bswap_intrinsic!(u8, check_bswap_u8, get_byte_at_u8);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_bswap_u16() {
     test_bswap_intrinsic!(u16, check_bswap_u16, get_byte_at_u16);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_bswap_u32() {
     test_bswap_intrinsic!(u32, check_bswap_u32, get_byte_at_u32);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_bswap_u64() {
     test_bswap_intrinsic!(u64, check_bswap_u64, get_byte_at_u64);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_bswap_u128() {
     test_bswap_intrinsic!(u128, check_bswap_u128, get_byte_at_u128);
 }

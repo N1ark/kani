@@ -22,7 +22,8 @@ fn f<'a>(x: &'a &Box<dyn Error + Send + Sync>) -> Box<&'a dyn Debug> {
     Box::new(d)
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let c = Concrete {};
     let x = Box::new(c) as Box<dyn Error + Send + Sync>;

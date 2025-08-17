@@ -3,7 +3,8 @@
 
 //! Empty slices use dangling pointers. Ensure that Kani is ok with that.
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_empty() {
     let vec = Vec::<f32>::new();
     for float in vec {

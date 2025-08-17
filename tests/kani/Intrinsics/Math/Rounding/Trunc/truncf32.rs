@@ -9,35 +9,40 @@
 #![feature(core_intrinsics)]
 use std::intrinsics::truncf32;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_one() {
     let one = 1.0;
     let trunc_res = unsafe { truncf32(one) };
     assert!(trunc_res == 1.0);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_one_frac() {
     let one_frac = 1.9;
     let trunc_res = unsafe { truncf32(one_frac) };
     assert!(trunc_res == 1.0);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_conc() {
     let conc = -42.6;
     let trunc_res = unsafe { truncf32(conc) };
     assert!(trunc_res == -42.0);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_conc_sci() {
     let conc = 5.4e-2;
     let trunc_res = unsafe { truncf32(conc) };
     assert!(trunc_res == 0.0);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_towards_zero() {
     let x: f32 = kani::any();
     kani::assume(!x.is_nan());
@@ -49,7 +54,8 @@ fn test_towards_zero() {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_diff_one() {
     let x: f32 = kani::any();
     kani::assume(!x.is_nan());

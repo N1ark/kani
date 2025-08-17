@@ -3,7 +3,8 @@
 
 // Check that regular arithmetic operations in unsafe blocks still trigger overflow checks.
 // kani-verify-fail
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 pub fn check_add(a: u8, b: u8) {
     unsafe {
         a + b;

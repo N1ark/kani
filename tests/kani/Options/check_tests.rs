@@ -17,8 +17,9 @@ pub mod my_mod {
 mod test {
     use my_mod::fn_under_verification;
 
-    #[test]
-    #[kani::proof]
+    #[cfg_attr(not(kani), test)]
+    #[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
     fn test_harness() {
         let input: i32 = kani::any();
         kani::assume(input > 1);

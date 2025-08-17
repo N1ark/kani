@@ -16,7 +16,8 @@ use std::pin::Pin;
 
 use std::mem::size_of_val;
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     // Coroutine taking a `Copy`able resume arg.
     let mut gen_copy = #[coroutine]

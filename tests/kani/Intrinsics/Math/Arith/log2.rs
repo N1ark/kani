@@ -1,7 +1,8 @@
 // Copyright Kani Contributors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn verify_log2_32() {
     let two = 2.0f32;
 
@@ -12,7 +13,8 @@ fn verify_log2_32() {
     assert!(abs_difference <= 0.09);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn verify_log2_64() {
     let four = 4.0_f64;
 

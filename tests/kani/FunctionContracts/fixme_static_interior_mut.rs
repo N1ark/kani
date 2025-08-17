@@ -22,14 +22,14 @@ unsafe impl Sync for WithMut {}
 static ZERO_VAL: WithMut = WithMut { regular_field: 0, mut_field: UnsafeCell::new(0) };
 
 /// The regular field should be 0.
-#[kani::ensures(|result| *result == 0)]
+#[cfg_attr(kani, kani::ensures(|result| *result == 0))]
 pub fn regular_field() -> u8 {
     ZERO_VAL.regular_field
 }
 
 /// This harness is a copy from `static_interior_mut.rs`.
 /// Once this gets fixed, please delete this file and enable the original one.
-#[kani::proof_for_contract(regular_field)]
+#[cfg_attr(kani, kani::proof_for_contract(regular_field))]
 fn check_regular_field_is_const() {
     assert_eq!(regular_field(), 0); // ** This should succeed since this field is constant.
 }

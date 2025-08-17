@@ -9,9 +9,9 @@
 // kani-flags: -Zfunction-contracts
 extern crate kani;
 
-#[kani::requires(idx < slice.len())]
-#[kani::modifies(slice.as_ptr().wrapping_add(idx))]
-#[kani::ensures(|_| slice[idx] == new_val)]
+#[cfg_attr(kani, kani::requires(idx < slice.len()))]
+#[cfg_attr(kani, kani::modifies(slice.as_ptr().wrapping_add(idx)))]
+#[cfg_attr(kani, kani::ensures(|_| slice[idx] == new_val))]
 fn modify_slice(slice: &mut [u32], idx: usize, new_val: u32) {
     *slice.get_mut(idx).unwrap() = new_val;
 }
@@ -20,7 +20,7 @@ fn modify_slice(slice: &mut [u32], idx: usize, new_val: u32) {
 mod verify {
     use super::modify_slice;
 
-    #[kani::proof_for_contract(modify_slice)]
+    #[cfg_attr(kani, kani::proof_for_contract(modify_slice))]
     fn check_modify_slice() {
         let mut data = kani::vec::any_vec::<u32, 5>();
         modify_slice(&mut data, kani::any(), kani::any())

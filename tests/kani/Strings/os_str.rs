@@ -44,7 +44,8 @@ impl OsStr {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let x = OsStr::new("hi");
     x.as_bytes();

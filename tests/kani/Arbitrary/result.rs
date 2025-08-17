@@ -30,7 +30,8 @@ impl kani::Arbitrary for Error {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let result: Result<MyType, Error> = kani::any();
     match result {

@@ -5,7 +5,8 @@
 // functions modelled in CBMC's math library. These models use approximations as documented in
 // CBMC's source code: https://github.com/diffblue/cbmc/blob/develop/src/ansi-c/library/math.c.
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn verify_logf32() {
     let e = std::f32::consts::E;
     let e_log = e.ln();
@@ -13,7 +14,8 @@ fn verify_logf32() {
     assert!((e_log - 1.0).abs() <= 0.058);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn verify_logf64() {
     let e = std::f64::consts::E;
     let e_log = e.ln();

@@ -12,7 +12,8 @@ use std::sync::{
     atomic::{AtomicI64, Ordering},
 };
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn issue_1593() {
     let x = Arc::new(AtomicI64::new(0));
     let x2 = x.clone();

@@ -19,7 +19,8 @@ impl Foo {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let x = Foo {};
     assert!(x.f() == 27);

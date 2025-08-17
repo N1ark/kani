@@ -1,7 +1,8 @@
 // Copyright Kani Contributors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn verify_sqrt32() {
     let positive = 4.0_f32;
     let negative_zero = -0.0_f32;
@@ -12,7 +13,8 @@ fn verify_sqrt32() {
     assert!(negative_zero.sqrt() == negative_zero);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn verify_sqrt64() {
     let positive = 4.0_f64;
     let negative_zero = -0.0_f64;

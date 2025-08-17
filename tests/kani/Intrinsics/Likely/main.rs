@@ -27,14 +27,16 @@ fn check_unlikely(x: i32, y: i32) {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_likely_main() {
     let x = kani::any();
     let y = kani::any();
     check_likely(x, y);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_unlikely_main() {
     let x = kani::any();
     let y = kani::any();

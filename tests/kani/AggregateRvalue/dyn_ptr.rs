@@ -21,8 +21,8 @@ impl SampleTrait for SampleStruct {
     }
 }
 
-#[cfg(kani)]
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_nonnull_dyn_from_raw_parts() {
     // Create a SampleTrait object from SampleStruct
     let sample_struct = SampleStruct { value: kani::any() };

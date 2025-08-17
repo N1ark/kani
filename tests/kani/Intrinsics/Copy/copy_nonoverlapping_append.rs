@@ -5,8 +5,9 @@
 // https://doc.rust-lang.org/core/intrinsics/fn.copy_nonoverlapping.html
 use std::ptr;
 
-#[kani::proof]
-#[kani::unwind(17)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(17))]
 fn test_append() {
     let mut a = vec!['r'];
     let mut b = vec!['u', 's', 't'];

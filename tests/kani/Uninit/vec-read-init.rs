@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 // kani-flags: -Z uninit-checks
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn vec_read_init() {
     let mut v: Vec<u8> = Vec::with_capacity(10);
     unsafe { *v.as_mut_ptr().add(5) = 0x42 };

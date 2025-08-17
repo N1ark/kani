@@ -8,7 +8,8 @@ enum Foo {
     B,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_assert_in_match() {
     let f = Foo::A;
     match f {

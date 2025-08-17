@@ -52,7 +52,8 @@ make_structs!(
     Foo94, Foo95, Foo96, Foo97, Foo98, Foo99, Foo100
 );
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let a: u32 = kani::any();
     let b: u16 = kani::any();

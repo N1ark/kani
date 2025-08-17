@@ -17,7 +17,8 @@ use std::mem::size_of_val;
 
 fn take<T>(_: T) {}
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let x = false;
     let gen1 = #[coroutine]

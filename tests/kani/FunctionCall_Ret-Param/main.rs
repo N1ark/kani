@@ -7,8 +7,9 @@
 // a verification failure (the loop being unwound depends on
 // a nondet. variable)
 
-#[kani::proof]
-#[kani::unwind(10)]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
+#[cfg_attr(kani, kani::unwind(10))]
 fn main() {
     let x: u32 = kani::any();
     let pi = 3.14159265359;

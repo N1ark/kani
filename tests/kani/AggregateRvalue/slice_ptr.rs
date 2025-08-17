@@ -15,7 +15,8 @@ mod issue_3615 {
         _value: T,
     }
 
-    #[kani::proof]
+    #[cfg_attr(kani, kani::proof)]
+    #[cfg_attr(not(kani), test)]
     pub fn from_raw_parts_for_slices() {
         let var: Wrapper<[u64; 4]> = kani::any();
         let fat_ptr: *const Wrapper<[u64]> = &var as *const _;
@@ -24,7 +25,8 @@ mod issue_3615 {
         let _new_ptr: *const Wrapper<[u64]> = ptr::from_raw_parts(thin_ptr, new_size);
     }
 
-    #[kani::proof]
+    #[cfg_attr(kani, kani::proof)]
+    #[cfg_attr(not(kani), test)]
     pub fn from_raw_parts_for_slices_nested() {
         let var: Wrapper<Wrapper<[u8; 4]>> = kani::any();
         let fat_ptr: *const Wrapper<Wrapper<[u8]>> = &var as *const _;
@@ -42,7 +44,8 @@ mod issue_3638 {
     struct Wrapper<T: ?Sized>(usize, T);
 
     #[cfg(kani)]
-    #[kani::proof]
+    #[cfg_attr(kani, kani::proof)]
+    #[cfg_attr(not(kani), test)]
     fn slice_from_raw() {
         // Create a SampleSlice object from SampleStruct
         let original: Wrapper<[u8; 10]> = kani::any();

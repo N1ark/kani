@@ -111,7 +111,8 @@ macro_rules! compare_simd_op_with_normal_op {
     };
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_simd_and() {
     compare_simd_op_with_normal_op!(simd_and, &, i8x2);
     compare_simd_op_with_normal_op!(simd_and, &, i16x2);
@@ -123,7 +124,8 @@ fn test_simd_and() {
     compare_simd_op_with_normal_op!(simd_and, &, u64x2);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_simd_or() {
     compare_simd_op_with_normal_op!(simd_or, |, i8x2);
     compare_simd_op_with_normal_op!(simd_or, |, i16x2);
@@ -135,7 +137,8 @@ fn test_simd_or() {
     compare_simd_op_with_normal_op!(simd_or, |, u64x2);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_simd_xor() {
     compare_simd_op_with_normal_op!(simd_xor, ^, i8x2);
     compare_simd_op_with_normal_op!(simd_xor, ^, i16x2);

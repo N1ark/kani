@@ -12,7 +12,8 @@ fn takes_dyn_fun(fun: &dyn Fn() -> i32) {
     /* The closure does not capture anything and thus has zero size */
     assert!(size_from_vtable(vtable!(fun)) == 0);
 }
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let closure = || 5;
     takes_dyn_fun(&closure)

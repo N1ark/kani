@@ -3,7 +3,8 @@
 
 /// This test checks that Kani handles UTF-8-encoded string literals correctly
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_utf8() {
     let s = "⌚⌛⛪";
 

@@ -5,7 +5,8 @@
 use std::slice;
 
 // From Listing 19-7: Creating a slice from an arbitrary memory location. https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let address = 0x01234usize;
     let r = address as *mut i32;

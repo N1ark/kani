@@ -4,7 +4,8 @@
 // kani-flags:-Z unstable-options --extra-pointer-checks
 // kani-verify-fail
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let a = [0; 5];
     let i: i32 = 0;

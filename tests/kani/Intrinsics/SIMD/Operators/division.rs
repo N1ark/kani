@@ -17,7 +17,8 @@ impl i32x2 {
     }
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_simd_div() {
     let dividend = kani::any();
     let dividends = i32x2([dividend, dividend]);
@@ -31,7 +32,8 @@ fn test_simd_div() {
     assert_eq!(normal_result, simd_result.into_array()[0]);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_simd_rem() {
     let dividend = kani::any();
     let dividends = i32x2([dividend, dividend]);

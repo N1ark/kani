@@ -15,7 +15,8 @@ extern "C" {
     fn takes_ptr_option(p: Option<&u32>) -> u32;
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     unsafe {
         // if (ptr) { *ptr - 1 }

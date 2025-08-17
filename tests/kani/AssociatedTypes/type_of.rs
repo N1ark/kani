@@ -25,7 +25,8 @@ fn same_type<T: 'static, U: 'static>(_: T, _: U) -> bool {
     TypeId::of::<T>() == TypeId::of::<U>()
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn check_type() {
     let mine = MyStruct { first: Wrapper(10), second: Wrapper(10) };
     assert!(same_type(mine.first, mine.second));

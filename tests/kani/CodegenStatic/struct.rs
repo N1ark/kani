@@ -7,7 +7,8 @@ pub struct Foo<const N: usize> {
 
 const x: Foo<3> = Foo { bytes: [1, 2, 3] };
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn simple_struct() {
     assert!(x.bytes[0] == 1);
 }
@@ -25,7 +26,8 @@ pub struct Inner {
 
 static OUTER: Outer = Outer { data: 'a', inner: Inner { a: 'a', b: 'b', c: 'c' } };
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn nested_struct() {
     assert!(OUTER.inner.c == 'c');
 }

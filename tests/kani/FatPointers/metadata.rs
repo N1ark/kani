@@ -11,7 +11,8 @@ trait T {}
 
 impl T for S {}
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn ptr_metadata() {
     assert_eq!(std::ptr::metadata("foo"), 3_usize);
 

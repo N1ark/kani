@@ -5,7 +5,8 @@
 
 use std::alloc::{Layout, alloc, dealloc, realloc};
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     unsafe {
         let mut len = 4;

@@ -13,7 +13,8 @@ enum MyError {
     Error3 { description: String, code: u32 },
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_standard_enum() {
     // Check that the values go from 0 to `num_variants - 1`
     assert!(discriminant_value(&MyError::Error1) == 0);
@@ -31,7 +32,8 @@ enum Constants {
     C,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_constants_enum() {
     // Check that the values are equal to the constants assigned
     assert!(discriminant_value(&Ordering::Less) == -1);
@@ -46,7 +48,8 @@ enum Ordering {
     Greater = 1,
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_ordering_enum() {
     // Check that the values are equal to the constants assigned
     // and the non-assigned value follows from the assigned ones
@@ -55,7 +58,8 @@ fn test_ordering_enum() {
     assert!(discriminant_value(&Constants::C) == 6);
 }
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn test_no_enum() {
     // Check that the value is 0 if the type has no discriminant
     assert!(discriminant_value(&2) == 0);

@@ -4,7 +4,8 @@
 // Check that none of these operations trigger spurious overflow checks.
 #![feature(core_intrinsics)]
 
-#[kani::proof]
+#[cfg_attr(kani, kani::proof)]
+#[cfg_attr(not(kani), test)]
 fn main() {
     let a: u8 = kani::any();
     let b: u8 = kani::any();
